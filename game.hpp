@@ -10,7 +10,7 @@
 
 class Game {
 public:
-    Game();
+    Game(const char* path);
     ~Game();
 
     void Render();
@@ -21,6 +21,8 @@ public:
         return map->TileAtPoint(player->GetX(),
                                 player->GetY()) == TT_GOAL;
     }
+
+    void ChangeMap(const char* path);
 
 private:
     void RenderMap();
@@ -35,7 +37,7 @@ private:
     GLuint tex0, tex1;
     GLint phongShader, texturedShader;
 
-    int wall_id, key_id, floor_id, goal_id;
+    int wall_id, key_id, char_id, floor_id, goal_id;
     Character* player;
 
     int time;

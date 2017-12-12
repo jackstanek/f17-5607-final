@@ -192,8 +192,8 @@ GLuint InitShader(const char* vShaderFileName, const char* fShaderFileName){
     return program;
 }
 
-Game::Game() :
-    map(Map::ParseMapFile("test_map.txt")),
+Game::Game(const char* path) :
+    map(Map::ParseMapFile(path)),
     mp(new ModelPool)
 {
     SDL_Init(SDL_INIT_VIDEO);  //Initialize Graphics (for OpenGL)
@@ -278,7 +278,7 @@ Game::Game() :
     // Load models to the GPU
     floor_id = mp->Add("models/floor.txt");
     wall_id = mp->Add("models/cube.txt");
-    int char_id = mp->Add("models/sphere.txt");
+    char_id = mp->Add("models/sphere.txt");
     key_id = mp->Add("models/knot.txt");
     goal_id = mp->Add("models/teapot.txt");
     mp->LoadToGPU(vbo[0]);
@@ -468,4 +468,9 @@ void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
         player->MoveInDirection(ev.keysym.sym, map, time);
     }
 
+}
+
+void Game::ChangeMap(const char* path){
+    map = Map::ParseMapFile(path);
+    player = map->NewPlayerAtStart(char_id);
 }

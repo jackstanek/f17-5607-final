@@ -68,16 +68,16 @@ void Character::MoveInDirection(int sym, Map* map, int time)
     prev_x = x;
     prev_y = y;
     switch (sym) {
-    case SDLK_LEFT:
+    case SDLK_a:
         direction = (direction + 3) % 4;
         break;
-    case SDLK_RIGHT:
+    case SDLK_d:
         direction = (direction + 1) % 4;
         break;
-    case SDLK_DOWN:
+    case SDLK_s:
         direction = (direction + 2) % 4;
         break;
-    case SDLK_UP:
+    case SDLK_w:
         Move(map);
     }
 

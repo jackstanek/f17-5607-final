@@ -60,6 +60,11 @@ glm::vec3 Character::LookAtPosition(int t) const
 
 void Character::MoveInDirection(int sym, Map* map, int time)
 {
+    /* Don't move if we are in an animation */
+    if (time - anim_start < ANIM_SPEED) {
+        return;
+    }
+
     prev_x = x;
     prev_y = y;
     switch (sym) {

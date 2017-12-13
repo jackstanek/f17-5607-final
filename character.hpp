@@ -43,7 +43,6 @@ private:
     int direction;
 
     int anim_start;
-    bool animated;
 };
 
 #endif

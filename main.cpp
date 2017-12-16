@@ -1,15 +1,19 @@
 #include <cstdio>
 #include <SDL2/SDL.h>
+#include <vector>
 
 #include "game.hpp"
 
 int main()
 {
-    Game* g = new Game("test-secondmap");
+    std::vector<const char*> maps = {"test-secondmap","test_map.txt"};
+    int currentMapIterator = 0;
+    Game* g = new Game(maps[0]);
     bool running = true;
     bool quit = false;
 
-    while (running && !quit) {
+    while (!quit && currentMapIterator < maps.size()) {
+        if (currentMapIterator != 0 && g->GameWon()) g->ChangeMap(maps[currentMapIterator]);
         SDL_Event event;
         while (SDL_PollEvent(&event)) {  //inspect all events in the queue
             if (event.type == SDL_QUIT) {
@@ -22,34 +26,9 @@ int main()
                 g->OnKeyDown(event.key);
             }
         }
+        g->Update();
         g->Render();
-
-        if (running) {
-            running = !g->GameWon();
-        }
+        if (g->GameWon()) currentMapIterator++;
     }
-
-    g->ChangeMap("test_map.txt");
-
-    running = true;
-    while (running && !quit) {
-        SDL_Event event;
-        while (SDL_PollEvent(&event)) {  //inspect all events in the queue
-            if (event.type == SDL_QUIT) {
-                running = false;
-            } else if (event.type == SDL_KEYDOWN) {
-                if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    running = false;
-                }
-                g->OnKeyDown(event.key);
-            }
-        }
-        g->Render();
-
-        if (running) {
-            running = !g->GameWon();
-        }
-    }
-
     delete g;
 }

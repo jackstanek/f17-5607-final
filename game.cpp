@@ -325,7 +325,6 @@ Game::~Game()
     delete map;
     delete mp;
     delete player;
-
     glDeleteProgram(texturedShader);
     glDeleteProgram(phongShader);
     glDeleteBuffers(1, vbo);
@@ -464,12 +463,12 @@ void Game::RenderCharacter()
 
 void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
 {
-    switch (ev.keysym.sym) {
-    default:
-        // player->AddToBuffer(ev.keysym.sym);
-        player->MoveInDirection(ev.keysym.sym, map, time);
+    // ActionQueue.push({ev.keysym.sym});
+    // TimeQueue.push(time);
+    if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
+        nextAction = ev.keysym.sym;
+        nextTime = time;
     }
-
 }
 
 void Game::ChangeMap(const char* path)
@@ -477,4 +476,11 @@ void Game::ChangeMap(const char* path)
     delete map;
     map = Map::ParseMapFile(path);
     player = map->NewPlayerAtStart(char_id);
+    nextAction = -1;
+}
+
+void Game::Update(){
+    if(nextAction != -1 && (time - nextTime < ANIM_SPEED/2)) {
+        if (player->MoveInDirection(nextAction, map, time)) nextAction = -1;
+    }
 }

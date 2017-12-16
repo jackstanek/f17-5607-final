@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
+#include <queue>
 #include "glad/glad.h"
 
 #include "character.hpp"
@@ -24,6 +25,7 @@ public:
     }
 
     void ChangeMap(const char* path);
+    void Update();
 
 private:
     void RenderMap();
@@ -45,6 +47,9 @@ private:
 
     Map* map;
     ModelPool* mp;
+
+    int nextAction = -1;
+    int nextTime; // on Dragonball Z
 };
 
 #endif

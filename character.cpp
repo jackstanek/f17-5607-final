@@ -58,13 +58,13 @@ glm::vec3 Character::LookAtPosition(int t) const
     return WorldPosition(t) + glm::vec3(0, 0, 0.33f);
 }
 
-void Character::MoveInDirection(int sym, Map* map, int time)
+bool Character::MoveInDirection(int sym, Map* map, int time)
 {
     /* Don't move if we are in an animation */
     if (time - anim_start < ANIM_SPEED) {
-        // animating = false;
-        return;
+        return false;
     }
+
     prev_x = x;
     prev_y = y;
     switch (sym) {
@@ -85,6 +85,7 @@ void Character::MoveInDirection(int sym, Map* map, int time)
     prev_bx = behind_x;
     prev_by = behind_y;
     SetBehind();
+    return true;
 }
 
 
@@ -143,16 +144,4 @@ void Character::SetBehind()
         behind_y = y;
         break;
     }
-}
-
-void Character::AddToBuffer(int sym){
-    Buffer.push_back(sym);
-}
-
-void Character::Next(Map* map, int time){
-    if(animating) return;
-    animating = true;
-    MoveInDirection(Buffer[0], map, time);
-    Buffer.erase(Buffer.begin());
-    return;
 }

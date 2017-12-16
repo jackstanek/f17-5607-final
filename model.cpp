@@ -80,8 +80,7 @@ Model::Model(const char* path, bool isObj) :
         for(int i = 0;i < face.size();i++){
             verts[i] = face.at(i);
         }
-        printf("finished adding obj\n");
-        delete fp;
+        fclose(fp);
     } else {
         //Load Model 1
         std::ifstream model_file;

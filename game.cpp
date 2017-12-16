@@ -60,7 +60,8 @@ static char* readShaderSource(const char* shaderFile)
     return buffer;
 }
 
-void Win2PPM(int width, int height){
+void Win2PPM(int width, int height)
+{
     char outdir[10] = "out/"; //Must be exist!
     int i,j;
     FILE* fptr;
@@ -100,7 +101,8 @@ void Win2PPM(int width, int height){
 }
 
 // Create a GLSL program object from vertex and fragment shader files
-GLuint InitShader(const char* vShaderFileName, const char* fShaderFileName){
+GLuint InitShader(const char* vShaderFileName, const char* fShaderFileName)
+{
     GLuint vertex_shader, fragment_shader;
     GLchar *vs_text, *fs_text;
     GLuint program;
@@ -215,8 +217,7 @@ Game::Game(const char* path) :
         printf("Vendor:   %s\n", glGetString(GL_VENDOR));
         printf("Renderer: %s\n", glGetString(GL_RENDERER));
         printf("Version:  %s\n\n", glGetString(GL_VERSION));
-    }
-    else {
+    } else {
         printf("ERROR: Failed to initialize OpenGL context.\n");
     }
 
@@ -317,6 +318,7 @@ Game::Game(const char* path) :
     glBindVertexArray(0); //Unbind the VAO in case we want to create a new one
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
 }
 
 Game::~Game()

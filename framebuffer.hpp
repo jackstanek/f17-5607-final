@@ -11,6 +11,7 @@ public:
     ~RenderPass();
 
     int GetID() const;
+    GLuint GetTarget() const;
 
     void Activate();
 

@@ -45,7 +45,7 @@ private:
     SDL_GLContext context;
 
     GLuint model_vao, quad_vao;
-    GLuint vbo[2];
+    GLuint vbo[N_VBOS];
     GLint uniView, uniProj;
     GLuint tex0, tex1;
     GLint phongShader, texturedShader, quadShader;

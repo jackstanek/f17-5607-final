@@ -40,6 +40,11 @@ int RenderPass::GetID() const
     return id;
 }
 
+GLuint RenderPass::GetTarget() const
+{
+    return target_tex;
+}
+
 void RenderPass::Activate()
 {
     glBindFramebuffer(GL_FRAMEBUFFER, frame_buf);

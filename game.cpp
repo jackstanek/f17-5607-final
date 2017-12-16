@@ -276,7 +276,7 @@ Game::Game(const char* path) :
     glBindVertexArray(model_vao); //Bind the above created VAO to the current context
 
     //Allocate memory on the graphics card to store geometry (vertex buffer object)
-    glGenBuffers(2, vbo);  //Create 1 buffer called vbo
+    glGenBuffers(1, &vbo[VBO_MODELS]);  //Create 1 buffer called vbo
 
     // Load models to the GPU
     floor_id = mp->Add("models/floor.txt");
@@ -292,6 +292,8 @@ Game::Game(const char* path) :
     //GL_STREAM_DRAW = geom. changes frequently.  This effects which types of GPU memory is used
 
     glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     glEnable(GL_TEXTURE_2D);
 
     texturedShader = InitShader("vertexTex.glsl", "fragmentTex.glsl");
@@ -325,6 +327,7 @@ Game::Game(const char* path) :
     glGenVertexArrays(1, &quad_vao);
     glBindVertexArray(quad_vao);
 
+    glGenBuffers(1, &vbo[VBO_QUAD]);
     glBindBuffer(GL_ARRAY_BUFFER, vbo[VBO_QUAD]); //Set the vbo as the active array buffer (Only one buffer can be active at a time)
     glBufferData(GL_ARRAY_BUFFER, sizeof(quad_data), quad_data, GL_STATIC_DRAW); //upload vertices to vbo
 
@@ -369,14 +372,11 @@ void Game::Render()
 {
     time = SDL_GetTicks();
 
-    /* Run each render pass */
-    //for (auto pass : render_passes) {
-    //pass->Activate();
+    /* Run each render pass to its own framebuffer */
+    for (auto pass : render_passes) {
+        pass->Activate();
 
-        // Clear the screen to default color
-        glClearColor(.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        glBindVertexArray(model_vao);
         glUseProgram(texturedShader);
 
         glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
@@ -399,9 +399,20 @@ void Game::Render()
 
         RenderMap();
         RenderCharacter();
-        //}
+    }
 
+    /* Render the fullscreen texture quad */
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glUseProgram(quadShader);
+    glBindVertexArray(quad_vao);
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, render_passes[0]->GetTarget());
+    glUniform1i(glGetUniformLocation(quadShader, "texDiffuse"), 0);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
     SDL_GL_SwapWindow(window); //Double buffering
 }

@@ -58,11 +58,11 @@ glm::vec3 Character::LookAtPosition(int t) const
     return WorldPosition(t) + glm::vec3(0, 0, 0.33f);
 }
 
-void Character::MoveInDirection(int sym, Map* map, int time)
+bool Character::MoveInDirection(int sym, Map* map, int time)
 {
     /* Don't move if we are in an animation */
     if (time - anim_start < ANIM_SPEED) {
-        return;
+        return false;
     }
 
     prev_x = x;
@@ -85,7 +85,9 @@ void Character::MoveInDirection(int sym, Map* map, int time)
     prev_bx = behind_x;
     prev_by = behind_y;
     SetBehind();
+    return true;
 }
+
 
 void Character::Move(Map* map)
 {

@@ -2,6 +2,8 @@
 #define GAME_HPP_
 
 #include <SDL2/SDL.h>
+#include <vector>
+#include <queue>
 #include "glad/glad.h"
 
 #include "framebuffer.hpp"
@@ -36,6 +38,7 @@ public:
     }
 
     void ChangeMap(const char* path);
+    void Update();
 
 private:
     void RenderMap();
@@ -59,6 +62,9 @@ private:
     ModelPool* mp;
 
     std::vector<RenderPass*> render_passes;
+
+    int nextAction = -1;
+    int nextTime; // on Dragonball Z
 };
 
 #endif

@@ -2,11 +2,11 @@
 #define CHARACTER_HPP_
 
 #include <SDL2/SDL.h>
-
+#include <vector>
 #include "glm/vec3.hpp"
 
 /* Time, in milliseconds, to perform an animation. */
-#define ANIM_SPEED 400
+#define ANIM_SPEED 300
 
 class Map;
 
@@ -14,7 +14,7 @@ enum CharacterDirection {
     CD_UP = 0,
     CD_RIGHT,
     CD_DOWN,
-    CD_LEFT
+    CD_LEFT,
 };
 
 class Character {
@@ -25,7 +25,7 @@ public:
     glm::vec3 CamPosition(int t) const;
     glm::vec3 LookAtPosition(int t) const;
 
-    void MoveInDirection(int cm, Map* map, int time);
+    bool MoveInDirection(int cm, Map* map, int time);
 
     int GetX() const { return x; }
     int GetY() const { return y; }

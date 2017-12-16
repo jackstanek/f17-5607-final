@@ -8,6 +8,7 @@
 class Model {
 public:
     Model(const char* path);
+    Model(const char* path, bool isObj);
     ~Model();
 
     int VertAttribCount() const;
@@ -24,6 +25,7 @@ public:
     ~ModelPool();
 
     int Add(const char* path);
+    int AddObj(const char* path);
     void LoadToGPU(GLuint vbo);
 
     int Offset(int id) const;

@@ -279,7 +279,8 @@ Game::Game(const char* path) :
     floor_id = mp->Add("models/floor.txt");
     wall_id = mp->Add("models/cube.txt");
     char_id = mp->Add("models/sphere.txt");
-    key_id = mp->Add("models/knot.txt");
+    // key_id = mp->Add("models/knot.txt");
+    key_id = mp->AddObj("models/slime.obj");
     goal_id = mp->Add("models/teapot.txt");
     mp->LoadToGPU(vbo[0]);
 
@@ -465,12 +466,15 @@ void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
 {
     switch (ev.keysym.sym) {
     default:
+        // player->AddToBuffer(ev.keysym.sym);
         player->MoveInDirection(ev.keysym.sym, map, time);
     }
 
 }
 
-void Game::ChangeMap(const char* path){
+void Game::ChangeMap(const char* path)
+{
+    delete map;
     map = Map::ParseMapFile(path);
     player = map->NewPlayerAtStart(char_id);
 }

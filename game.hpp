@@ -2,6 +2,7 @@
 #define GAME_HPP_
 
 #include <SDL2/SDL.h>
+#include <vector>
 #include "glad/glad.h"
 
 #include "character.hpp"

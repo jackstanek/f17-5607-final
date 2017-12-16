@@ -62,9 +62,9 @@ void Character::MoveInDirection(int sym, Map* map, int time)
 {
     /* Don't move if we are in an animation */
     if (time - anim_start < ANIM_SPEED) {
+        // animating = false;
         return;
     }
-
     prev_x = x;
     prev_y = y;
     switch (sym) {
@@ -86,6 +86,7 @@ void Character::MoveInDirection(int sym, Map* map, int time)
     prev_by = behind_y;
     SetBehind();
 }
+
 
 void Character::Move(Map* map)
 {
@@ -142,4 +143,16 @@ void Character::SetBehind()
         behind_y = y;
         break;
     }
+}
+
+void Character::AddToBuffer(int sym){
+    Buffer.push_back(sym);
+}
+
+void Character::Next(Map* map, int time){
+    if(animating) return;
+    animating = true;
+    MoveInDirection(Buffer[0], map, time);
+    Buffer.erase(Buffer.begin());
+    return;
 }

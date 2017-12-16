@@ -1,5 +1,7 @@
 #include <algorithm>
 #include <fstream>
+#include <vector>
+#include <string>
 
 #include "glad/glad.h"
 
@@ -17,6 +19,80 @@ Model::Model(const char* path) :
         model_file >> verts[i];
     }
     model_file.close();
+}
+
+Model::Model(const char* path, bool isObj) :
+    vert_count(0)
+{
+    if (isObj){
+        std::vector< std::vector<float> > v;
+        std::vector< std::vector<float> > n;
+
+        FILE* fp;
+        fp = fopen(path,"r");
+        if (fp == NULL) {
+            printf("Error opening %s.\n", path);
+            exit(EXIT_FAILURE);
+        }
+
+        char line[1024];
+        std::vector<float> face;
+        while(fgets(line,1024,fp)) {
+            char command[50];
+            int fieldsRead = sscanf(line, "%s ", command);
+            std::string commandStr = command;
+
+            if (fieldsRead < 1) continue;
+
+            if (commandStr == "v"){
+                float x, y, z;
+                sscanf(line, "v %f %f %f",&x, &y, &z);
+                std::vector<float> temp = {x, y, z};
+                v.push_back(temp);
+            }
+            else if (commandStr == "vn"){
+                float x, y, z;
+                sscanf(line, "vn %f %f %f",&x, &y, &z);
+                std::vector<float> temp = {x, y, z};
+                n.push_back(temp);
+            }
+            else if (commandStr == "f"){
+                int px, nx, py, ny, pz, nz;
+                sscanf(line, "f %i//%i %i//%i %i//%i",&px,&nx, &py,&ny, &pz, &nz);
+                face.insert(std::end(face), std::begin(v[px-1]), std::end(v[px-1]));
+                face.push_back(0);
+                face.push_back(0);
+                face.insert(std::end(face), std::begin(n[ny-1]), std::end(n[ny-1]));
+
+                face.insert(std::end(face), std::begin(v[py-1]), std::end(v[py-1]));
+                face.push_back(0);
+                face.push_back(0);
+                face.insert(std::end(face), std::begin(n[nx-1]), std::end(n[nx-1]));
+
+                face.insert(std::end(face), std::begin(v[pz-1]), std::end(v[pz-1]));
+                face.push_back(0);
+                face.push_back(0);
+                face.insert(std::end(face), std::begin(n[nz-1]), std::end(n[nz-1]));
+            }
+        }
+        vert_count = face.size();
+        verts = new float[vert_count];
+        for(int i = 0;i < face.size();i++){
+            verts[i] = face.at(i);
+        }
+        printf("finished adding obj\n");
+        delete fp;
+    } else {
+        //Load Model 1
+        std::ifstream model_file;
+        model_file.open(path);
+        model_file >> vert_count;
+        verts = new float[vert_count];
+        for (int i = 0; i < vert_count; i++) {
+            model_file >> verts[i];
+        }
+        model_file.close();
+    }
 }
 
 Model::~Model()
@@ -51,6 +127,19 @@ ModelPool::~ModelPool()
 int ModelPool::Add(const char *path)
 {
     Model* new_model = new Model(path);
+    int curr_id = models.size();
+    if (curr_id == 0) {
+        offsets.push_back(0);
+    } else {
+        offsets.push_back(offsets.back() + models.back()->VertAttribCount());
+    }
+    models.push_back(new_model);
+    return curr_id;
+}
+
+int ModelPool::AddObj(const char *path)
+{
+    Model* new_model = new Model(path,true);
     int curr_id = models.size();
     if (curr_id == 0) {
         offsets.push_back(0);

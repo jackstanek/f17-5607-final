@@ -9,5 +9,5 @@ uniform sampler2D texDiffuse;
 uniform int time;
 
 void main() {
-    outColor = texture(texDiffuse, vec2(1 - Texcoord.x, Texcoord.y);
+    outColor = texture(texDiffuse, vec2(1 - Texcoord.x, Texcoord.y));
 }

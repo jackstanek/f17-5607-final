@@ -376,6 +376,9 @@ void Game::Render()
     for (auto pass : render_passes) {
         pass->Activate();
 
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
+
         glBindVertexArray(model_vao);
         glUseProgram(texturedShader);
 
@@ -412,6 +415,7 @@ void Game::Render()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, render_passes[0]->GetTarget());
     glUniform1i(glGetUniformLocation(quadShader, "texDiffuse"), 0);
+    glUniform1i(glGetUniformLocation(quadShader, "time"), time);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     SDL_GL_SwapWindow(window); //Double buffering

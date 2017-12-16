@@ -25,7 +25,7 @@ RenderPass::RenderPass(int w, int h) :
     glGenRenderbuffers(1, &z_buf);
     glBindRenderbuffer(GL_RENDERBUFFER, z_buf);
     glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, w, h);
-    glFramebufferRenderbuffer(GL_RENDERBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, z_buf);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, z_buf);
 }
 
 RenderPass::~RenderPass()

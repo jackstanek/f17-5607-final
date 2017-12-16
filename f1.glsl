@@ -6,7 +6,8 @@ in vec2 Texcoord;
 out vec4 outColor;
 
 uniform sampler2D texDiffuse;
+uniform int time;
 
 void main() {
-    outColor = texture(texDiffuse, Texcoord);
+    outColor = texture(texDiffuse, vec2(1 - Texcoord.x, Texcoord.y);
 }

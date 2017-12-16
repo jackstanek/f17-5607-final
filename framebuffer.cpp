@@ -28,6 +28,13 @@ RenderPass::RenderPass(int w, int h) :
     glFramebufferRenderbuffer(GL_RENDERBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, z_buf);
 }
 
+RenderPass::~RenderPass()
+{
+    glDeleteTextures(1, &target_tex);
+    glDeleteFramebuffers(1, &frame_buf);
+    glDeleteRenderbuffers(1, &z_buf);
+}
+
 int RenderPass::GetID() const
 {
     return id;
@@ -35,5 +42,9 @@ int RenderPass::GetID() const
 
 void RenderPass::Activate()
 {
-    glBind
+    glBindFramebuffer(GL_FRAMEBUFFER, frame_buf);
+
+    /*  Clear color to black, I guess. */
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

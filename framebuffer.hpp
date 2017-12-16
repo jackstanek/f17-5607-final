@@ -8,6 +8,7 @@
 class RenderPass {
 public:
     RenderPass(int w, int h);
+    ~RenderPass();
 
     int GetID() const;
 
@@ -23,14 +24,6 @@ private:
 
     /* Render target texture */
     GLuint target_tex;
-};
-
-class MultiPassRenderer {
-public:
-    MultiPassRenderer(int w, int h, int passes);
-
-private:
-    std::vector<RenderPass*> passes;
 };
 
 #endif

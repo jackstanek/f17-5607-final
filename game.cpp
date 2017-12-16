@@ -11,11 +11,13 @@
 #include "model.hpp"
 #include "map.hpp"
 
-#define DEBUG_ON false
+#define DEBUG_ON true
 
 int screenWidth = 800;
 int screenHeight = 600;
 bool saveOutput = false;
+
+const float quad_data[24] = {1,1,0,1, -1,1,1,1, -1,-1,1,0,  1,-1,0,0, 1,1,0,1, -1,-1,1,0};
 
 glm::mat4 floating_obj(glm::mat4 model, int t)
 {
@@ -196,7 +198,8 @@ GLuint InitShader(const char* vShaderFileName, const char* fShaderFileName)
 
 Game::Game(const char* path) :
     map(Map::ParseMapFile(path)),
-    mp(new ModelPool)
+    mp(new ModelPool),
+    render_passes(NUM_RENDER_PASSES)
 {
     SDL_Init(SDL_INIT_VIDEO);  //Initialize Graphics (for OpenGL)
 
@@ -241,7 +244,6 @@ Game::Game(const char* path) :
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w,surface->h, 0, GL_BGR,GL_UNSIGNED_BYTE,surface->pixels);
     glGenerateMipmap(GL_TEXTURE_2D);
 
-
     SDL_FreeSurface(surface);
     //// End Allocate Texture ///////
 
@@ -270,11 +272,11 @@ Game::Game(const char* path) :
     //// End Allocate Texture ///////
 
     //Build a Vertex Array Object. This stores the VBO and attribute mappings in one object
-    glGenVertexArrays(1, &vao); //Create a VAO
-    glBindVertexArray(vao); //Bind the above created VAO to the current context
+    glGenVertexArrays(1, &model_vao); //Create a VAO
+    glBindVertexArray(model_vao); //Bind the above created VAO to the current context
 
     //Allocate memory on the graphics card to store geometry (vertex buffer object)
-    glGenBuffers(1, vbo);  //Create 1 buffer called vbo
+    glGenBuffers(2, vbo);  //Create 1 buffer called vbo
 
     // Load models to the GPU
     floor_id = mp->Add("models/floor.txt");
@@ -289,9 +291,12 @@ Game::Game(const char* path) :
     //GL_STATIC_DRAW means we won't change the geometry, GL_DYNAMIC_DRAW = geometry changes infrequently
     //GL_STREAM_DRAW = geom. changes frequently.  This effects which types of GPU memory is used
 
-    texturedShader = InitShader("vertexTex.glsl", "fragmentTex.glsl");
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
 
+    texturedShader = InitShader("vertexTex.glsl", "fragmentTex.glsl");
     phongShader = InitShader("vertex.glsl", "fragment.glsl");
+    quadShader = InitShader("v1.glsl", "f1.glsl");
 
     //Tell OpenGL how to set fragment shader input
     GLint posAttrib = glGetAttribLocation(texturedShader, "position");
@@ -317,12 +322,37 @@ Game::Game(const char* path) :
 
     glBindVertexArray(0); //Unbind the VAO in case we want to create a new one
 
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_TEXTURE_2D);
+    glGenVertexArrays(1, &quad_vao);
+    glBindVertexArray(quad_vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[VBO_QUAD]); //Set the vbo as the active array buffer (Only one buffer can be active at a time)
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quad_data), quad_data, GL_STATIC_DRAW); //upload vertices to vbo
+
+    //Tell OpenGL how to set vertex shader input
+    GLint quadPosAttrib = glGetAttribLocation(quadShader, "position");
+    glVertexAttribPointer(quadPosAttrib, 2, GL_FLOAT, GL_FALSE, 4*sizeof(float), 0);
+    glEnableVertexAttribArray(quadPosAttrib);
+
+    GLint quadTexAttrib = glGetAttribLocation(quadShader, "texcoord");
+    glVertexAttribPointer(quadTexAttrib, 2, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)(2*sizeof(float)));
+    glEnableVertexAttribArray(quadTexAttrib);
+
+    glBindVertexArray(0); //Unbind the VAO in case we want to create a new one
+
+    for (int i = 0; i < NUM_RENDER_PASSES; i++) {
+        render_passes[i] = new RenderPass(screenWidth, screenHeight);
+    }
+
+    /* Unbind all framebuffers */
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 Game::~Game()
 {
+    for (auto pass : render_passes) {
+        delete pass;
+    }
+
     delete map;
     delete mp;
     delete player;
@@ -330,7 +360,7 @@ Game::~Game()
     glDeleteProgram(texturedShader);
     glDeleteProgram(phongShader);
     glDeleteBuffers(1, vbo);
-    glDeleteVertexArrays(1, &vao);
+    glDeleteVertexArrays(1, &model_vao);
     SDL_GL_DeleteContext(context);
     SDL_Quit();
 }
@@ -339,35 +369,39 @@ void Game::Render()
 {
     time = SDL_GetTicks();
 
-    // Clear the screen to default color
-    glClearColor(.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    /* Run each render pass */
+    //for (auto pass : render_passes) {
+    //pass->Activate();
 
-    glUseProgram(texturedShader);
+        // Clear the screen to default color
+        glClearColor(.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
-                                 player->LookAtPosition(time),
-                                 glm::vec3(0.0f, 0.0f, 1.0f)); //Up */
-    glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
+        glUseProgram(texturedShader);
 
-    glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 10.0f); //FOV, aspect, near, far
-    glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
+        glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
+                                     player->LookAtPosition(time),
+                                     glm::vec3(0.0f, 0.0f, 1.0f)); //Up */
+        glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, tex0);
-    glUniform1i(glGetUniformLocation(texturedShader, "tex0"), 0);
+        glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 10.0f); //FOV, aspect, near, far
+        glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, tex1);
-    glUniform1i(glGetUniformLocation(texturedShader, "tex1"), 1);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, tex0);
+        glUniform1i(glGetUniformLocation(texturedShader, "tex0"), 0);
 
-    glBindVertexArray(vao);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, tex1);
+        glUniform1i(glGetUniformLocation(texturedShader, "tex1"), 1);
 
-    RenderMap();
-    RenderCharacter();
-    //drawGeometry(texturedShader, 288, 103680, timePast);
+        glBindVertexArray(model_vao);
 
-    if (saveOutput) Win2PPM(screenWidth,screenHeight);
+        RenderMap();
+        RenderCharacter();
+        //}
+
+
 
     SDL_GL_SwapWindow(window); //Double buffering
 }

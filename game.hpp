@@ -4,9 +4,22 @@
 #include <SDL2/SDL.h>
 #include "glad/glad.h"
 
+#include "framebuffer.hpp"
 #include "character.hpp"
 #include "map.hpp"
 #include "model.hpp"
+
+enum VBOs {
+    VBO_MODELS = 0,
+    VBO_QUAD,
+    N_VBOS
+};
+
+enum RENDER_PASSES {
+    RP_DIFFUSE = 0,
+    //RP_NORMALS,
+    NUM_RENDER_PASSES
+};
 
 class Game {
 public:
@@ -31,11 +44,11 @@ private:
     SDL_Window* window;
     SDL_GLContext context;
 
-    GLuint vao;
-    GLuint vbo[1];
+    GLuint model_vao, quad_vao;
+    GLuint vbo[2];
     GLint uniView, uniProj;
     GLuint tex0, tex1;
-    GLint phongShader, texturedShader;
+    GLint phongShader, texturedShader, quadShader;
 
     int wall_id, key_id, char_id, floor_id, goal_id;
     Character* player;
@@ -44,6 +57,8 @@ private:
 
     Map* map;
     ModelPool* mp;
+
+    std::vector<RenderPass*> render_passes;
 };
 
 #endif

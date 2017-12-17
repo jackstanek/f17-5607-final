@@ -12,8 +12,8 @@ int main()
     //bool running = true;
     bool quit = false;
 
-    while (!quit && currentMapIterator < maps.size()) {
-        if (currentMapIterator != 0 && g->GameWon()) g->ChangeMap(maps[currentMapIterator]);
+    while (!quit) {
+        if (currentMapIterator != 0 && g->GameWon()) g->ChangeMap();
         SDL_Event event;
         while (SDL_PollEvent(&event)) {  //inspect all events in the queue
             if (event.type == SDL_QUIT) {

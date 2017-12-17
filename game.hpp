@@ -37,7 +37,7 @@ public:
                                 player->GetY()) == TT_GOAL;
     }
 
-    void ChangeMap(const char* path);
+    void ChangeMap();
     void Update();
 
 private:

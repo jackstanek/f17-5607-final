@@ -36,25 +36,25 @@ void Map::SetTile(int x, int y, int type)
     tiles[y * w + x] = type;
 }
 
-Map* Map::ParseMapFile(const char* path)
+Map* Map::ParseMapFile()
 {
-    std::ifstream map_file;
-    map_file.open(path);
+    //std::ifstream map_file;
+    //map_file.open(path);
+    //
+    //if (!map_file) {
+    //    return nullptr;
+    //}
 
-    if (!map_file) {
-        return nullptr;
-    }
+    //uint32_t w = 0, h = 0;
+    //map_file >> w >> h;
+    //assert(w > 0 && h > 0);
 
-    uint32_t w = 0, h = 0;
-    map_file >> w >> h;
-    assert(w > 0 && h > 0);
-
-    Map* m = new Map(30, 30);
+    Map* m = new Map(236, 60);
     //int type;
     //char curr;
     int door_ct = 0, key_ct = 0;
 
-	Dungeon dungeon = Dungeon(m->w, m->h, 30);
+	Dungeon dungeon = Dungeon(m->w, m->h, 10);
 	
 	
 	m->startx = dungeon.startx;
@@ -78,9 +78,31 @@ Map* Map::ParseMapFile(const char* path)
 
 void Map::print_map()
 {
-	for (unsigned int y = 0; y < w; ++y) {
-        for (unsigned int x = 0; x < h; ++x) {
-            std::cout << static_cast<char>(TileAtPoint(w - x, y));
+	unsigned int min_x = w, min_y = h;
+	unsigned int max_x = 0, max_y = 0;
+	for (unsigned int y = 0; y < h; ++y) {
+        for (unsigned int x = 0; x < w; ++x) {
+			if (TileAtPoint(x, y) != ' ') {
+				if (x < min_x) {
+					min_x = x;
+				}
+				if (y < min_y) {
+					min_y = y;
+				}
+				if (x > max_x) {
+					max_x = x;
+				}
+				if (y > max_y) {
+					max_y = y;
+				}
+			}
+		}
+	}
+	
+	printf("x: min %d max %d, y: min %d, max %d\n", min_x, max_x, min_y, max_y);
+	for (unsigned int y = 0; y <= max_y - min_y; ++y) {
+        for (unsigned int x = 0; x <= max_x - min_y; ++x) {
+            std::cout << static_cast<char>(TileAtPoint(max_x - x, y + min_y));
         }
         std::cout << std::endl;
     }
@@ -96,15 +118,16 @@ void Map::CollectKey(int key)
 
 bool Map::KeyCollected(int key) const
 {
-    int index = -1;
-    if (IsKey(key)) {
-        index = KeyIndex(key);
-    } else if (IsDoor(key)) {
-        index = DoorIndex(key);
-    }
-    assert(index >= 0);
+    //int index = -1;
+    //if (IsKey(key)) {
+    //    index = KeyIndex(key);
+    //} else if (IsDoor(key)) {
+    //    index = DoorIndex(key);
+    //}
+    //assert(index >= 0);
 
-    return keys_collected[index];
+    //return keys_collected[index];
+    return true;
 }
 
 Character* Map::NewPlayerAtStart(int model_id) const

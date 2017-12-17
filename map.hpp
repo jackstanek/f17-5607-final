@@ -12,8 +12,8 @@
 
 enum TileType {
     TT_OPEN = ' ',
-    TT_START = 'U',
-    TT_GOAL = 'D',
+    TT_START = 'S',
+    TT_GOAL = 'G',
     TT_KEY_A = 'A',
     TT_KEY_B = 'B',
     TT_KEY_C = 'C',
@@ -56,7 +56,7 @@ public:
     int GetWidth() const;
     int GetHeight() const;
 
-    static Map* ParseMapFile(const char* path);
+    static Map* ParseMapFile();
     Character* NewPlayerAtStart(int model_id) const;
 
     void RenderMap();

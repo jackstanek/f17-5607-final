@@ -38,7 +38,7 @@ glm::mat4 floating_obj(glm::mat4 model, int t)
     return model;
 }
 Game::Game(const char* path) :
-    map(Map::ParseMapFile(path)),
+    map(Map::ParseMapFile()),
     mp(new ModelPool),
     render_passes(NUM_RENDER_PASSES)
 {
@@ -363,10 +363,10 @@ void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
     }
 }
 
-void Game::ChangeMap(const char* path)
+void Game::ChangeMap()
 {
     delete map;
-    map = Map::ParseMapFile(path);
+    map = Map::ParseMapFile();
     player = map->NewPlayerAtStart(char_id);
     nextAction = -1;
 }

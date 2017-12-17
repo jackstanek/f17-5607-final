@@ -77,7 +77,7 @@ Model::Model(const char* path, bool isObj) :
         }
         vert_count = face.size();
         verts = new float[vert_count];
-        for(int i = 0;i < face.size();i++){
+        for(unsigned int i = 0;i < face.size();i++){
             verts[i] = face.at(i);
         }
         fclose(fp);

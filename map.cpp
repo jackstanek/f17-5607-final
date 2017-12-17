@@ -62,8 +62,8 @@ Map* Map::ParseMapFile(const char* path)
 	
 	dungeon.print();
 	
-	for (int i = 0; i < m->w; ++i) {
-		for (int j = 0; j < m->h; ++j) {
+	for (unsigned int i = 0; i < m->w; ++i) {
+		for (unsigned int j = 0; j < m->h; ++j) {
 			//std::cout << dungeon.get_cell(i, j) << std::endl;
 			m->SetTile(i, j, dungeon.get_cell(i, j));
 		}

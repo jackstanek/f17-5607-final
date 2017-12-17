@@ -7,9 +7,9 @@
 int main()
 {
     std::vector<const char*> maps = {"test-secondmap","test_map.txt"};
-    int currentMapIterator = 0;
+    unsigned int currentMapIterator = 0;
     Game* g = new Game(maps[0]);
-    bool running = true;
+    //bool running = true;
     bool quit = false;
 
     while (!quit && currentMapIterator < maps.size()) {
@@ -17,10 +17,10 @@ int main()
         SDL_Event event;
         while (SDL_PollEvent(&event)) {  //inspect all events in the queue
             if (event.type == SDL_QUIT) {
-                running = false;
+                //running = false;
             } else if (event.type == SDL_KEYDOWN) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    running = false;
+                    //running = false;
                     quit = true;
                 }
                 g->OnKeyDown(event.key);

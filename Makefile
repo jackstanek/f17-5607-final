@@ -19,4 +19,4 @@ game: $(OBJECTS) glad/glad.c
 	$(CXX) -c $(CXXFLAGS) $<
 
 clean:
-	rm $(EXECUTABLE) $(OBJECTS)
+	rm $(EXECUTABLE) $(OBJECTS) test-game

@@ -297,8 +297,8 @@ Game::Game(const char* path) :
     glEnable(GL_TEXTURE_2D);
 
     texturedShader = InitShader("vertexTex.glsl", "fragmentTex.glsl");
-    phongShader = InitShader("vertex.glsl", "fragment.glsl");
-    quadShader = InitShader("v1.glsl", "f1.glsl");
+    normalShader = InitShader("vertexNormal.glsl", "fragmentNormal.glsl");
+    quadShader = InitShader("vertexQuad.glsl", "fragmentQuad.glsl");
 
     //Tell OpenGL how to set fragment shader input
     GLint posAttrib = glGetAttribLocation(texturedShader, "position");
@@ -361,7 +361,8 @@ Game::~Game()
     delete player;
 
     glDeleteProgram(texturedShader);
-    glDeleteProgram(phongShader);
+    glDeleteProgram(normalShader);
+    glDeleteProgram(quadShader);
     glDeleteBuffers(1, vbo);
     glDeleteVertexArrays(1, &model_vao);
     SDL_GL_DeleteContext(context);
@@ -375,6 +376,11 @@ void Game::Render()
     /* Run each render pass to its own framebuffer */
     for (auto pass : render_passes) {
         pass->Activate();
+        if (pass->GetID() == RP_DIFFUSE) {
+            glUseProgram(texturedShader);
+        } else if (pass->GetID() == RP_NORMALS) {
+            glUseProgram(normalShader);
+        }
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -415,7 +421,11 @@ void Game::Render()
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, render_passes[0]->GetTarget());
     glUniform1i(glGetUniformLocation(quadShader, "texDiffuse"), 0);
-    glUniform1i(glGetUniformLocation(quadShader, "time"), time);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, render_passes[1]->GetTarget());
+    glUniform1i(glGetUniformLocation(quadShader, "texNormal"), 1);
+
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     SDL_GL_SwapWindow(window); //Double buffering

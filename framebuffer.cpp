@@ -2,7 +2,7 @@
 
 #include "framebuffer.hpp"
 
-int RenderPass::next_id = 1;
+int RenderPass::next_id = 0;
 
 RenderPass::RenderPass(int w, int h) :
     id(RenderPass::next_id++)

@@ -79,8 +79,10 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
 			break;
 		case SDLK_w:
 			Move(map);
+			break;
 		case SDLK_m:
 			map->print_map();
+			break;
     }
 
     anim_start = time;

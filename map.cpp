@@ -9,7 +9,7 @@ Map::Map(int w, int h) :
     key_collected_count(0),
     w(w),
     h(h),
-    tiles(new int[w * h])
+    tiles(std::vector<int>(w * h, TT_OPEN))
 {
     for (int i = 0; i < 5; i++) {
         keys_collected[i] = false;
@@ -49,80 +49,35 @@ Map* Map::ParseMapFile(const char* path)
     map_file >> w >> h;
     assert(w > 0 && h > 0);
 
-    Map* m = new Map(w, h);
-    int type;
-    char curr;
+    Map* m = new Map(60, 60);
+    //int type;
+    //char curr;
     int door_ct = 0, key_ct = 0;
 
-    for (uint32_t j = 0; j < h; j++) {
-        for (uint32_t i = 0; i < w; i++) {
-            map_file >> curr;
-            switch (curr) {
-            case '0':
-                type = TT_OPEN;
-                break;
-            case 'W':
-                type = TT_WALL;
-                break;
-            case 'A':
-                type = TT_DOOR_A;
-                door_ct++;
-                break;
-            case 'B':
-                type = TT_DOOR_B;
-                door_ct++;
-                break;
-            case 'C':
-                type = TT_DOOR_C;
-                door_ct++;
-                break;
-            case 'D':
-                type = TT_DOOR_D;
-                door_ct++;
-                break;
-            case 'E':
-                type = TT_DOOR_E;
-                door_ct++;
-                break;
-            case 'a':
-                type = TT_KEY_A;
-                key_ct++;
-                break;
-            case 'b':
-                type = TT_KEY_B;
-                key_ct++;
-                break;
-            case 'c':
-                type = TT_KEY_C;
-                key_ct++;
-                break;
-            case 'd':
-                type = TT_KEY_D;
-                key_ct++;
-                break;
-            case 'e':
-                type = TT_KEY_E;
-                key_ct++;
-                break;
-            case 'S':
-                m->startx = i;
-                m->starty = h - j - 1;
-                type = TT_START;
-                break;
-            case 'G':
-                type = TT_GOAL;
-                break;
-            case '\n':
-                continue;
-            default:
-                return nullptr;
-                break;
-            }
+	Dungeon dungeon = Dungeon(m->w, m->h, 10);
+	
+	
+	m->startx = dungeon.startx;
+	m->starty = dungeon.starty;
+	
+	dungeon.print();
+	
+	for (int i = 0; i < m->w; ++i) {
+		for (int j = 0; j < m->h; ++j) {
+			//std::cout << dungeon.get_cell(i, j) << std::endl;
+			m->SetTile(i, j, dungeon.get_cell(i, j));
+		}
+	}
 
-            m->SetTile(i, h - j - 1, type);
-        }
-    }
+	std::cout << std::endl;
 
+	//for (int y = 0; y < m->w; ++y) {
+    //    for (int x = 0; x < m->h; ++x) {
+    //        std::cout << static_cast<char>(m->TileAtPoint(x, y));
+    //    }
+    //    std::cout << std::endl;
+    //}
+    
     assert(key_ct == door_ct);
     m->total_key_count = key_ct;
     return m;

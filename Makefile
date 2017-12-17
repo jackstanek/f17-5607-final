@@ -2,7 +2,7 @@ CXXFLAGS+=-std=c++11 -Wall -g
 LDFLAGS=-ldl -lSDL2
 
 EXECUTABLE=game
-OBJECTS=game.o main.o model.o map.o character.o framebuffer.o
+OBJECTS=game.o main.o model.o map.o character.o framebuffer.o dungeon.o
 
 all: test-game $(EXECUTABLE)
 

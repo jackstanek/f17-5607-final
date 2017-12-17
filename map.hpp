@@ -8,23 +8,28 @@
 #include "glad/glad.h"
 
 #include "character.hpp"
+#include "dungeon.hpp"
 
 enum TileType {
-    TT_OPEN = 0,
-    TT_START,
-    TT_GOAL,
-    TT_KEY_A,
-    TT_KEY_B,
-    TT_KEY_C,
-    TT_KEY_D,
-    TT_KEY_E,
-    TT_DOOR_A,
-    TT_DOOR_B,
-    TT_DOOR_C,
-    TT_DOOR_D,
-    TT_DOOR_E,
-    TT_WALL,
-    TT_N_TYPES
+    TT_OPEN = ' ',
+    TT_START = 'U',
+    TT_GOAL = 'D',
+    TT_KEY_A = 'A',
+    TT_KEY_B = 'B',
+    TT_KEY_C = 'C',
+    TT_KEY_D = 'D',
+    TT_KEY_E = 'E',
+    TT_DOOR_A = 'a',
+    TT_DOOR_B = 'b',
+    TT_DOOR_C = 'c',
+    TT_DOOR_D = 'd',
+    TT_DOOR_E = 'e',
+    TT_WALL = '#',
+    TT_N_TYPES = 'N',
+    TT_FLOOR = '.',
+    TT_HALLWAY = ',',
+    TT_CLOSED_DOOR = '+',
+    TT_OPEN_DOOR = '-'
 };
 
 inline bool IsDoor(int tile) {
@@ -92,7 +97,7 @@ private:
 
     uint32_t w, h, size;
     int startx, starty;
-    int* tiles;
+    std::vector<int> tiles;
 };
 
 #endif

@@ -8,7 +8,7 @@ Dungeon::Dungeon(int complexity)
 {
     m_width = 236;
     m_height = 60;
-    m_cells = std::vector<char>(m_width * m_height, TT_OPEN);
+    m_cells = std::vector<int>(m_width * m_height, TT_OPEN);
     m_rooms = std::vector<Room>();
     m_exits = std::vector<Room>();
     generate_dungeon(complexity);
@@ -20,7 +20,7 @@ Dungeon::Dungeon(int width, int height, int complexity)
 {
     m_width = width;
     m_height = height;
-    m_cells = std::vector<char>(m_width * m_height, TT_OPEN);
+    m_cells = std::vector<int>(m_width * m_height, TT_OPEN);
     m_rooms = std::vector<Room>();
     m_exits = std::vector<Room>();
     generate_dungeon(complexity);
@@ -76,13 +76,13 @@ void Dungeon::print()
 {
     for (int y = 0; y < m_height; ++y) {
         for (int x = 0; x < m_width; ++x) {
-            std::cout << get_cell(x, y);
+            std::cout << static_cast<char>(get_cell(m_width - x, y));
         }
         std::cout << std::endl;
     }
 }
 
-char Dungeon::get_cell(int x, int y)
+int Dungeon::get_cell(int x, int y)
 {
     if (x < 0 || y < 0 || x >= m_width || y >= m_height) {
         return TT_OPEN;
@@ -90,8 +90,12 @@ char Dungeon::get_cell(int x, int y)
     return m_cells.at(x + y * m_width);
 }
 
-void Dungeon::set_cell(int x, int y, char cell)
+void Dungeon::set_cell(int x, int y, int cell)
 {
+	if (cell == TT_START) {
+		startx = x;
+		starty = y;
+	}
     m_cells.at(x + y * m_width) = cell;
 }
 
@@ -254,7 +258,7 @@ bool Dungeon::make_hallway(int x, int y, int dir)
     return false;
 }
 
-bool Dungeon::place_room(Room room, char cell)
+bool Dungeon::place_room(Room room, int cell)
 {
     // make sure room is not out of bounds
     if (room.x < 1 || room.y < 1 || room.x + room.width > m_width - 1 || room.y + room.height > m_height - 1) {
@@ -283,7 +287,7 @@ bool Dungeon::place_room(Room room, char cell)
     return true;
 }
 
-bool Dungeon::place_object(char cell)
+bool Dungeon::place_object(int cell)
 {
     if (m_rooms.empty()) {
         return false;

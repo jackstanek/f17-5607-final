@@ -68,9 +68,10 @@ public:
     }
 
     inline bool Traversable(uint32_t ix, uint32_t iy) const {
-        int tile = TileAtPoint(ix, iy);
-        return tile <= TT_KEY_E ||
-            (tile <= TT_DOOR_E && KeyCollected(tile));
+        int t = TileAtPoint(ix, iy);
+        return t == TT_START || t == TT_GOAL || t == TT_KEY_A || t ==TT_KEY_B ||
+				t == TT_KEY_C || t == TT_KEY_D || t ==  TT_KEY_E || t == TT_FLOOR;
+            //(tile <= TT_DOOR_E && KeyCollected(tile));
     }
 
     inline bool ValidMove(int x, int y) const {

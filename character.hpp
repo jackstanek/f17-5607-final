@@ -6,7 +6,7 @@
 #include "glm/vec3.hpp"
 
 /* Time, in milliseconds, to perform an animation. */
-#define ANIM_SPEED 300
+#define ANIM_SPEED 150
 
 class Map;
 

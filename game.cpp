@@ -17,6 +17,16 @@ int screenWidth = 800;
 int screenHeight = 600;
 bool saveOutput = false;
 
+// eric: this is my code for floating keys in hand if we want to use it
+//if (key_stats[i] == KEY_IN_HAND) {
+//	model = glm::translate(glm::mat4(), glm::vec3(key_position[i]));
+//	model = glm::rotate(model, (float)(elapsed_time*5.0*M_PI), glm::vec3(1.0f, 1.0f, 1.0f));
+//	glUniformMatrix4fv(uniform_model, 1, GL_FALSE, glm::value_ptr(model));
+//	glUniform3fv(uniform_color, 1, glm::value_ptr(key_colors[i]));
+//	glUniform1i(uniform_texID, -1);
+//	glDrawArrays(GL_TRIANGLES, start, vertex_number[4]);
+//}
+
 static char* readShaderSource(const char* shaderFile);
 void Win2PPM(int width, int height);
 GLuint InitShader(const char* vShaderFileName, const char* fShaderFileName);

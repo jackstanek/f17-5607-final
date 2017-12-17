@@ -49,18 +49,18 @@ Map* Map::ParseMapFile(const char* path)
     map_file >> w >> h;
     assert(w > 0 && h > 0);
 
-    Map* m = new Map(60, 60);
+    Map* m = new Map(30, 30);
     //int type;
     //char curr;
     int door_ct = 0, key_ct = 0;
 
-	Dungeon dungeon = Dungeon(m->w, m->h, 10);
+	Dungeon dungeon = Dungeon(m->w, m->h, 30);
 	
 	
 	m->startx = dungeon.startx;
 	m->starty = dungeon.starty;
 	
-	dungeon.print();
+	//dungeon.print();
 	
 	for (unsigned int i = 0; i < m->w; ++i) {
 		for (unsigned int j = 0; j < m->h; ++j) {
@@ -70,17 +70,20 @@ Map* Map::ParseMapFile(const char* path)
 	}
 
 	std::cout << std::endl;
-
-	//for (int y = 0; y < m->w; ++y) {
-    //    for (int x = 0; x < m->h; ++x) {
-    //        std::cout << static_cast<char>(m->TileAtPoint(x, y));
-    //    }
-    //    std::cout << std::endl;
-    //}
     
     assert(key_ct == door_ct);
     m->total_key_count = key_ct;
     return m;
+}
+
+void Map::print_map()
+{
+	for (unsigned int y = 0; y < w; ++y) {
+        for (unsigned int x = 0; x < h; ++x) {
+            std::cout << static_cast<char>(TileAtPoint(w - x, y));
+        }
+        std::cout << std::endl;
+    }
 }
 
 void Map::CollectKey(int key)

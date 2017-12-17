@@ -68,17 +68,19 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
     prev_x = x;
     prev_y = y;
     switch (sym) {
-    case SDLK_a:
-        direction = (direction + 3) % 4;
-        break;
-    case SDLK_d:
-        direction = (direction + 1) % 4;
-        break;
-    case SDLK_s:
-        direction = (direction + 2) % 4;
-        break;
-    case SDLK_w:
-        Move(map);
+		case SDLK_a:
+			direction = (direction + 3) % 4;
+			break;
+		case SDLK_d:
+			direction = (direction + 1) % 4;
+			break;
+		case SDLK_s:
+			direction = (direction + 2) % 4;
+			break;
+		case SDLK_w:
+			Move(map);
+		case SDLK_m:
+			map->print_map();
     }
 
     anim_start = time;

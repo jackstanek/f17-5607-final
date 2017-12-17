@@ -87,6 +87,8 @@ public:
 
     bool KeyCollected(int key) const;
     void CollectKey(int key);
+    
+    void print_map();
 
 private:
     Map(int w, int h);

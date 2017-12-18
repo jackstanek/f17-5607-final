@@ -37,11 +37,12 @@ glm::mat4 floating_obj(glm::mat4 model, int t)
     model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     return model;
 }
-Game::Game(const char* path) :
-    map(Map::ParseMapFile()),
+Game::Game(int diff) :
+    map(Map::ParseMapFile(10 * diff)),
     mp(new ModelPool),
     render_passes(NUM_RENDER_PASSES)
 {
+	difficulty = diff;
     SDL_Init(SDL_INIT_VIDEO);  //Initialize Graphics (for OpenGL)
 
     //Ask SDL to get a recent version of OpenGL (3 or greater)
@@ -368,7 +369,10 @@ void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
 void Game::ChangeMap()
 {
     delete map;
-    map = Map::ParseMapFile();
+    //complexity = 10 * difficulty;
+    difficulty++;
+    printf("complexity = %d, difficulty = %d\n", 10 * difficulty, difficulty);
+    map = Map::ParseMapFile(10 * difficulty);
     player = map->NewPlayerAtStart(char_id);
     nextAction = -1;
 }

@@ -11,6 +11,7 @@ Dungeon::Dungeon(int complexity)
     m_cells = std::vector<int>(m_width * m_height, TT_OPEN);
     m_rooms = std::vector<Room>();
     m_exits = std::vector<Room>();
+    printf("current dungeon complexity = %d\n", complexity);
     generate_dungeon(complexity);
 }
 
@@ -23,6 +24,7 @@ Dungeon::Dungeon(int width, int height, int complexity)
     m_cells = std::vector<int>(m_width * m_height, TT_OPEN);
     m_rooms = std::vector<Room>();
     m_exits = std::vector<Room>();
+    printf("current dungeon complexity = %d\n", complexity);
     generate_dungeon(complexity);
 }
 

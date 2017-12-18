@@ -4,11 +4,18 @@
 
 #include "game.hpp"
 
-int main()
+int main(int argc, char ** argv)
 {
     std::vector<const char*> maps = {"test-secondmap","test_map.txt"};
     unsigned int currentMapIterator = 0;
-    Game* g = new Game(maps[0]);
+    Game* g;
+    if (argc == 1) {
+		g = new Game(1);
+	}
+	else {
+		g = new Game(atoi(argv[1]));
+	}
+    
     //bool running = true;
     bool quit = false;
 

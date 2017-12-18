@@ -56,7 +56,7 @@ public:
     int GetWidth() const;
     int GetHeight() const;
 
-    static Map* ParseMapFile();
+    static Map* ParseMapFile(int);
     Character* NewPlayerAtStart(int model_id) const;
 
     void RenderMap();

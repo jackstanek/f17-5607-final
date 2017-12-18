@@ -25,7 +25,7 @@ enum RENDER_PASSES {
 
 class Game {
 public:
-    Game(const char* path);
+    Game(int);
     ~Game();
 
     void Render();
@@ -57,12 +57,12 @@ private:
     Character* player;
 
     int time;
-
+	int difficulty;
     Map* map;
     ModelPool* mp;
 
     std::vector<RenderPass*> render_passes;
-
+    
     int nextAction = -1;
     int nextTime; // on Dragonball Z
 };

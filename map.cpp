@@ -36,7 +36,7 @@ void Map::SetTile(int x, int y, int type)
     tiles[y * w + x] = type;
 }
 
-Map* Map::ParseMapFile()
+Map* Map::ParseMapFile(int complexity)
 {
     //std::ifstream map_file;
     //map_file.open(path);
@@ -54,7 +54,7 @@ Map* Map::ParseMapFile()
     //char curr;
     int door_ct = 0, key_ct = 0;
 
-	Dungeon dungeon = Dungeon(m->w, m->h, 10);
+	Dungeon dungeon = Dungeon(m->w, m->h, complexity);
 	
 	
 	m->startx = dungeon.startx;
@@ -99,9 +99,10 @@ void Map::print_map()
 		}
 	}
 	
-	printf("x: min %d max %d, y: min %d, max %d\n", min_x, max_x, min_y, max_y);
+	//printf("x: min %d max %d, y: min %d, max %d\n", min_x, max_x, min_y, max_y);
+	printf("width = %d, height = %d\n", max_x - min_x, max_y - min_y);
 	for (unsigned int y = 0; y <= max_y - min_y; ++y) {
-        for (unsigned int x = 0; x <= max_x - min_y; ++x) {
+        for (unsigned int x = 0; x <= max_x - min_x; ++x) {
             std::cout << static_cast<char>(TileAtPoint(max_x - x, y + min_y));
         }
         std::cout << std::endl;

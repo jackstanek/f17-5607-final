@@ -142,8 +142,7 @@ Game::Game(int diff) :
     glEnable(GL_TEXTURE_2D);
 
     texturedShader = InitShader("vertexTex.glsl", "fragmentTex.glsl");
-    phongShader = InitShader("vertex.glsl", "fragment.glsl");
-    quadShader = InitShader("v1.glsl", "f1.glsl");
+    quadShader = InitShader("vertexQuad.glsl", "fragmentQuad.glsl");
 
     //Tell OpenGL how to set fragment shader input
     GLint posAttrib = glGetAttribLocation(texturedShader, "position");
@@ -188,7 +187,7 @@ Game::Game(int diff) :
     glBindVertexArray(0); //Unbind the VAO in case we want to create a new one
 
     for (int i = 0; i < NUM_RENDER_PASSES; i++) {
-        render_passes[i] = new RenderPass(screenWidth, screenHeight);
+        render_passes[i] = new RenderPass(screenWidth, screenHeight, i);
     }
 
     /* Unbind all framebuffers */
@@ -205,7 +204,7 @@ Game::~Game()
     delete mp;
     delete player;
     glDeleteProgram(texturedShader);
-    glDeleteProgram(phongShader);
+    glDeleteProgram(quadShader);
     glDeleteBuffers(1, vbo);
     glDeleteVertexArrays(1, &model_vao);
     SDL_GL_DeleteContext(context);
@@ -215,10 +214,17 @@ Game::~Game()
 void Game::Render()
 {
     time = SDL_GetTicks();
+    glUseProgram(texturedShader);
+
+    glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
+                                 player->LookAtPosition(time),
+                                 glm::vec3(0.0f, 0.0f, 1.0f)); //Up
 
     /* Run each render pass to its own framebuffer */
+    const static GLint uni_pass_mode = glGetUniformLocation(texturedShader, "pass_mode");
     for (auto pass : render_passes) {
         pass->Activate();
+        glUniform1i(uni_pass_mode, pass->GetID());
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -226,9 +232,6 @@ void Game::Render()
         glBindVertexArray(model_vao);
         glUseProgram(texturedShader);
 
-        glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
-                                     player->LookAtPosition(time),
-                                     glm::vec3(0.0f, 0.0f, 1.0f)); //Up */
         glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
         glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 10.0f); //FOV, aspect, near, far
@@ -256,10 +259,20 @@ void Game::Render()
     glUseProgram(quadShader);
     glBindVertexArray(quad_vao);
 
+    glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(view * glm::vec4(-1, 1, -1, 0)));
+
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, render_passes[0]->GetTarget());
     glUniform1i(glGetUniformLocation(quadShader, "texDiffuse"), 0);
-    glUniform1i(glGetUniformLocation(quadShader, "time"), time);
+
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, render_passes[1]->GetTarget());
+    glUniform1i(glGetUniformLocation(quadShader, "texNormal"), 1);
+
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, render_passes[2]->GetTarget());
+    glUniform1i(glGetUniformLocation(quadShader, "texPos"), 2);
+
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     SDL_GL_SwapWindow(window); //Double buffering

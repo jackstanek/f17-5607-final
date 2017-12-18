@@ -5,9 +5,16 @@
 
 #include "glad/glad.h"
 
+enum RENDER_PASSES {
+    RP_DIFFUSE = 0,
+    RP_NORMALS,
+    RP_POSITIONs,
+    NUM_RENDER_PASSES
+};
+
 class RenderPass {
 public:
-    RenderPass(int w, int h);
+    RenderPass(int w, int h, int type);
     ~RenderPass();
 
     int GetID() const;

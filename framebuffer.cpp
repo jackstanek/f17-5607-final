@@ -2,9 +2,9 @@
 
 #include "framebuffer.hpp"
 
-int RenderPass::next_id = 1;
+int RenderPass::next_id = 0;
 
-RenderPass::RenderPass(int w, int h) :
+RenderPass::RenderPass(int w, int h, int type) :
     id(RenderPass::next_id++)
 {
     /* Create the target texture */
@@ -14,7 +14,11 @@ RenderPass::RenderPass(int w, int h) :
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    if (type == RP_DIFFUSE) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    } else {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB32F, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+    }
 
     /* Get a framebuffer for this pass */
     glGenFramebuffers(1, &frame_buf);

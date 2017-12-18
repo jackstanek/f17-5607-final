@@ -17,12 +17,6 @@ enum VBOs {
     N_VBOS
 };
 
-enum RENDER_PASSES {
-    RP_DIFFUSE = 0,
-    //RP_NORMALS,
-    NUM_RENDER_PASSES
-};
-
 class Game {
 public:
     Game(int);
@@ -51,7 +45,7 @@ private:
     GLuint vbo[N_VBOS];
     GLint uniView, uniProj;
     GLuint tex0, tex1;
-    GLint phongShader, texturedShader, quadShader;
+    GLint texturedShader, quadShader;
 
     int wall_id, key_id, char_id, floor_id, goal_id;
     Character* player;

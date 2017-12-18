@@ -1,0 +1,223 @@
+# Blender MTL File: 'None'
+# Material Count: 18
+
+newmtl RL_Cavity
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Cavity_Diffuse_RL_CavityCompleteMap.jpg
+
+newmtl RL_DownTeeth
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Bump -bm 0.042005 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_DownTeeth_Normal_human_teech_down_col_n.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_DownTeeth_Diffuse_human_teech_down_col.jpg
+
+newmtl RL_Eyewinker
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 1
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Eyewinker_Diffuse_Eyewinker_D.jpg
+map_d C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Eyewinker_Opacity_Eyewinker_O.jpg
+
+newmtl RL_Hair
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 1
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Hair_Diffuse_Hair_C.jpg
+map_d C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Hair_Opacity_Hair_O.jpg
+
+newmtl RL_Iris
+Ns 429.411765
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Iris_Diffuse_eye_iris.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Iris_Diffuse_eye_iris.jpg
+
+newmtl RL_Iris.001
+Ns 429.411765
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Iris_Diffuse_eye_iris.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Iris_Diffuse_eye_iris.jpg
+
+newmtl RL_Lens
+Ns 429.411765
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lens_Diffuse_eye_lens.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lens_Specular_eye_lens_specular.jpg
+map_d C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lens_Diffuse_eye_lens.jpg
+
+newmtl RL_Lens.001
+Ns 429.411765
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lens_Diffuse_eye_lens.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lens_Specular_eye_lens_specular.jpg
+map_d C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lens_Diffuse_eye_lens.jpg
+
+newmtl RL_Lower
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lower_Normal_Lower_N.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Lower_Diffuse_Lower_C.jpg
+
+newmtl RL_Shoes
+Ns 198.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.501961 0.501961 0.501961
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Shoes_Normal_Shoes_N.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Shoes_Diffuse_Shoes_C.jpg
+
+newmtl RL_Skin
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.538824 0.538824 0.538824
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.070008 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Normal_FbxTemp_0006.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Diffuse_FbxTemp_0005.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Specular_F-Normal_up_s.jpg
+
+newmtl RL_Skin.001
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.538824 0.538824 0.538824
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.070008 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Normal_F-Normal_shoes_n.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Diffuse_FbxTemp_0004.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Specular_F-Normal_shoes_s.jpg
+
+newmtl RL_Skin.002
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.538824 0.538824 0.538824
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.070008 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Normal_F-Normal_lower_n.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Diffuse_FbxTemp_0007.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Specular_F-Normal_lower_s.jpg
+
+newmtl RL_Skin.003
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.600000 0.600000 0.600000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.070008 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Normal_F-Normal_face_n.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Diffuse_F-Normal_face_c.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Specular_F-Normal_face_s.jpg
+
+newmtl RL_Skin.004
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.538824 0.538824 0.538824
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.070008 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Normal_F-Normal_hand_n.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Diffuse_FbxTemp_0001.jpg
+map_Ks C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Skin_Specular_F-Normal_hand_s.jpg
+
+newmtl RL_Tongue
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 1.000000 1.000000 1.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Tongue_Diffuse_Tongue.jpg
+
+newmtl RL_Upper
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.050000 0.050000 0.050000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.070008 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Upper_Normal_Upper_N.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_Upper_Diffuse_Upper_C.jpg
+
+newmtl RL_UpperTeeth
+Ns 98.039216
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Bump -bm 0.042005 C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_UpperTeeth_Normal_human_teech_up_col_n.jpg
+map_Kd C:\\Users\\Kebtiz\\AppData\\Local\\Temp\\iClone7Temp\\iClone7Temp\\RL_UpperTeeth_Diffuse_human_teech_up_col.jpg

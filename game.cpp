@@ -344,7 +344,9 @@ void Game::RenderCharacter()
     glBindBuffer(GL_ARRAY_BUFFER, player->model_id);
 
     glm::mat4 model;
+
     model = glm::translate(model, player->WorldPosition(time));
+    model = glm::rotate(model, player->Rotation(), glm::vec3(0,0,1));
     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
     glUniformMatrix4fv(uni_model, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -358,11 +360,12 @@ void Game::RenderCharacter()
 
 void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
 {
-    // ActionQueue.push({ev.keysym.sym});
-    // TimeQueue.push(time);
-    if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
-        nextAction = ev.keysym.sym;
-        nextTime = time;
+    switch (ev.keysym.sym) {
+        default:
+            if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
+                nextAction = ev.keysym.sym;
+                nextTime = time;
+            }
     }
 }
 

@@ -19,6 +19,7 @@ Character::Character(int x, int y, int model_id) :
     behind_x(x),
     behind_y(y - 1),
     direction(CD_UP),
+    rot(-3.1415/2),
     anim_start(0)
 {
     SetBehind();
@@ -58,6 +59,11 @@ glm::vec3 Character::LookAtPosition(int t) const
     return WorldPosition(t) + glm::vec3(0, 0, 0.33f);
 }
 
+float Character::Rotation() const
+{
+    return rot;
+}
+
 bool Character::MoveInDirection(int sym, Map* map, int time)
 {
     /* Don't move if we are in an animation */
@@ -85,6 +91,7 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
 			break;
     }
 
+    rot = (direction + 1) * (-3.1415/2);
     anim_start = time;
     prev_bx = behind_x;
     prev_by = behind_y;

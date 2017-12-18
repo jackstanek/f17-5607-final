@@ -342,7 +342,7 @@ Game::Game(const char* path) :
     glBindVertexArray(0); //Unbind the VAO in case we want to create a new one
 
     for (int i = 0; i < NUM_RENDER_PASSES; i++) {
-        render_passes[i] = new RenderPass(screenWidth, screenHeight);
+        render_passes[i] = new RenderPass(screenWidth, screenHeight, i);
     }
 
     /* Unbind all framebuffers */
@@ -419,7 +419,7 @@ void Game::Render()
     glUseProgram(quadShader);
     glBindVertexArray(quad_vao);
 
-    glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(glm::vec4(-1, 1, -1, 0)));
+    glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(view * glm::vec4(-1, 1, -1, 0)));
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, render_passes[0]->GetTarget());

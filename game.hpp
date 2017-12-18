@@ -15,12 +15,6 @@ enum VBOs {
     N_VBOS
 };
 
-enum RENDER_PASSES {
-    RP_DIFFUSE = 0,
-    RP_NORMALS,
-    NUM_RENDER_PASSES
-};
-
 class Game {
 public:
     Game(const char* path);

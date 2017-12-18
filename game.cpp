@@ -297,7 +297,6 @@ Game::Game(const char* path) :
     glEnable(GL_TEXTURE_2D);
 
     texturedShader = InitShader("vertexTex.glsl", "fragmentTex.glsl");
-    normalShader = InitShader("vertexNormal.glsl", "fragmentNormal.glsl");
     quadShader = InitShader("vertexQuad.glsl", "fragmentQuad.glsl");
 
     //Tell OpenGL how to set fragment shader input
@@ -361,7 +360,6 @@ Game::~Game()
     delete player;
 
     glDeleteProgram(texturedShader);
-    glDeleteProgram(normalShader);
     glDeleteProgram(quadShader);
     glDeleteBuffers(1, vbo);
     glDeleteVertexArrays(1, &model_vao);
@@ -372,14 +370,20 @@ Game::~Game()
 void Game::Render()
 {
     time = SDL_GetTicks();
+    glUseProgram(texturedShader);
+
+    glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
+                                 player->LookAtPosition(time),
+                                 glm::vec3(0.0f, 0.0f, 1.0f)); //Up
 
     /* Run each render pass to its own framebuffer */
+    const static GLint uni_pass_mode = glGetUniformLocation(texturedShader, "pass_mode");
     for (auto pass : render_passes) {
         pass->Activate();
         if (pass->GetID() == RP_DIFFUSE) {
-            glUseProgram(texturedShader);
+            glUniform1i(uni_pass_mode, 0);
         } else if (pass->GetID() == RP_NORMALS) {
-            glUseProgram(normalShader);
+            glUniform1i(uni_pass_mode, 1);
         }
 
         glEnable(GL_DEPTH_TEST);
@@ -388,9 +392,6 @@ void Game::Render()
         glBindVertexArray(model_vao);
         glUseProgram(texturedShader);
 
-        glm::mat4 view = glm::lookAt(player->CamPosition(time),//glm::vec3(1.f, -3.f, 0.7f),  //Cam Position
-                                     player->LookAtPosition(time),
-                                     glm::vec3(0.0f, 0.0f, 1.0f)); //Up */
         glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
         glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 10.0f); //FOV, aspect, near, far
@@ -417,6 +418,8 @@ void Game::Render()
 
     glUseProgram(quadShader);
     glBindVertexArray(quad_vao);
+
+    glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(glm::vec4(-1, 1, -1, 0)));
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, render_passes[0]->GetTarget());

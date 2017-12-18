@@ -48,7 +48,7 @@ private:
     GLuint vbo[N_VBOS];
     GLint uniView, uniProj;
     GLuint tex0, tex1;
-    GLint texturedShader, normalShader, quadShader;
+    GLint texturedShader, quadShader;
 
     int wall_id, key_id, char_id, floor_id, goal_id;
     Character* player;

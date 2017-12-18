@@ -23,8 +23,8 @@ void main() {
    Color = inColor;
    gl_Position = proj * view * model * vec4(position,1.0);
    pos = (view * model * vec4(position,1.0)).xyz;
-   lightDir = (view * vec4(inLightDir,0.0)).xyz; //It's a vector!
-   vec4 norm4 = transpose(inverse(view*model)) * vec4(inNormal,0.0);
+   lightDir = (view * vec4(inLightDir, 0.0)).xyz; //It's a vector!
+   vec4 norm4 = transpose(inverse(view*model)) * vec4(inNormal, 0.0);
    normal = normalize(norm4.xyz);
    texcoord = inTexcoord;
 }

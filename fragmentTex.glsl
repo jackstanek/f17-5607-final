@@ -28,5 +28,7 @@ void main() {
         }
     } else if (pass_mode == 1) {
         outColor = vec4(normal, 1.0);
+    } else if (pass_mode == 2) {
+        outColor = vec4(pos, 1.0);
     }
 }

@@ -380,11 +380,7 @@ void Game::Render()
     const static GLint uni_pass_mode = glGetUniformLocation(texturedShader, "pass_mode");
     for (auto pass : render_passes) {
         pass->Activate();
-        if (pass->GetID() == RP_DIFFUSE) {
-            glUniform1i(uni_pass_mode, 0);
-        } else if (pass->GetID() == RP_NORMALS) {
-            glUniform1i(uni_pass_mode, 1);
-        }
+        glUniform1i(uni_pass_mode, pass->GetID());
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -428,6 +424,10 @@ void Game::Render()
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, render_passes[1]->GetTarget());
     glUniform1i(glGetUniformLocation(quadShader, "texNormal"), 1);
+
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, render_passes[2]->GetTarget());
+    glUniform1i(glGetUniformLocation(quadShader, "texPos"), 2);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 

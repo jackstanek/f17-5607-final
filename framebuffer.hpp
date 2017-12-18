@@ -8,6 +8,7 @@
 enum RENDER_PASSES {
     RP_DIFFUSE = 0,
     RP_NORMALS,
+    RP_POSITIONs,
     NUM_RENDER_PASSES
 };
 

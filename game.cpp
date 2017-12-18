@@ -122,10 +122,12 @@ Game::Game(const char* path) :
     // Load models to the GPU
     floor_id = mp->Add("models/floor.txt");
     wall_id = mp->Add("models/cube.txt");
-    char_id = mp->Add("models/sphere.txt");
+    //char_id = mp->Add("models/sphere.txt");
+    char_id = mp->AddObj("models/Gwynn.obj");
     // key_id = mp->Add("models/knot.txt");
     key_id = mp->AddObj("models/slime.obj");
     goal_id = mp->Add("models/teapot.txt");
+    //goal_id = mp->AddObj("models/Gwynn.obj");
     mp->LoadToGPU(vbo[0]);
 
     player = map->NewPlayerAtStart(char_id);

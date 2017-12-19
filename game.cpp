@@ -134,10 +134,10 @@ Game::Game(int diff) :
     floor_id = mp->Add("models/floor.txt");
     wall_id = mp->Add("models/cube.txt");
     //char_id = mp->Add("models/sphere.txt");
-    // char_id = mp->AddObj("models/Gwynn.obj");
+    key_id = mp->AddObj("models/Gwynn.obj");
     char_id = mp->AddObj("models/lantern.obj");
     // key_id = mp->Add("models/knot.txt");
-    key_id = mp->AddObj("models/leather-brunette.obj");
+    //key_id = mp->AddObj("models/leather-brunette.obj");
     goal_id = mp->Add("models/teapot.txt");
     //goal_id = mp->AddObj("models/Gwynn.obj");
     mp->LoadToGPU(vbo[0]);

@@ -19,6 +19,7 @@ Character::Character(int x, int y, int model_id) :
     front_x(x),
     front_y(y + 1),
     direction(CD_UP),
+    prev_rot(-3.1415/2),
     rot(-3.1415/2),
     anim_start(0)
 {
@@ -49,8 +50,8 @@ glm::vec3 Character::CamPosition(int t) const
 glm::vec3 Character::WorldPosition(int t) const
 {
     int tc = t - anim_start;
-    return glm::vec3(blend(tc, prev_x, x) + (front_x - x),
-                     blend(tc, prev_y, y) + (front_y - y),
+    return glm::vec3(blend(tc, prev_x, x),
+                     blend(tc, prev_y, y),
                      0.0f);
 }
 
@@ -62,9 +63,15 @@ glm::vec3 Character::LookAtPosition(int t) const
                      0.0f);
 }
 
-float Character::Rotation() const
+float Character::Rotation(int t) const
 {
-    return rot;
+    int tc = t - anim_start;
+    if (rot < 0.01 && rot > -0.01 && prev_rot < -3.14159) {
+        return blend(tc, prev_rot, -3.1415*2);
+    } else if  (prev_rot < 0.01 && prev_rot > -0.01 && rot < -3.14159) {
+        return blend(tc, -3.1415*2, rot);
+    }
+    return blend(tc, prev_rot, rot);
 }
 
 bool Character::MoveInDirection(int sym, Map* map, int time)
@@ -94,7 +101,8 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
 			break;
     }
 
-    rot = (direction + 1) * (-3.1415/2);
+    prev_rot = rot;
+    rot = (direction) * (-3.1415/2);
     anim_start = time;
     prev_fx = front_x;
     prev_fy = front_y;

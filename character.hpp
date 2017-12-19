@@ -24,7 +24,7 @@ public:
     glm::vec3 WorldPosition(int t) const;
     glm::vec3 CamPosition(int t) const;
     glm::vec3 LookAtPosition(int t) const;
-    float Rotation() const;
+    float Rotation(int t) const;
 
     bool MoveInDirection(int cm, Map* map, int time);
 
@@ -42,6 +42,7 @@ private:
     int prev_fx, prev_fy;
     int front_x, front_y;
     int direction;
+    float prev_rot;
     float rot;
 
     int anim_start;

@@ -380,7 +380,8 @@ void Game::RenderCharacter()
     glm::mat4 model;
 
     model = glm::translate(model, player->WorldPosition(time));
-    model = glm::rotate(model, player->Rotation(), glm::vec3(0,0,1));
+    model = glm::rotate(model, player->Rotation(time), glm::vec3(0,0,1));
+    model = glm::translate(model, glm::vec3(0, 0.25, 0));
     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
     glUniformMatrix4fv(uni_model, 1, GL_FALSE, glm::value_ptr(model));
 

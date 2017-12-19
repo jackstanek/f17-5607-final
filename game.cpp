@@ -17,6 +17,9 @@ int screenWidth = 800;
 int screenHeight = 600;
 bool saveOutput = false;
 
+int framesRendered = 0;
+int lastPrint = 0;
+
 // eric: this is my code for floating keys in hand if we want to use it
 //if (key_stats[i] == KEY_IN_HAND) {
 //	model = glm::translate(glm::mat4(), glm::vec3(key_position[i]));
@@ -276,6 +279,14 @@ void Game::Render()
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     SDL_GL_SwapWindow(window); //Double buffering
+
+    framesRendered++;
+
+    if (time - lastPrint > 1000) {
+        std::printf("%d FPS\n", framesRendered * 1000 / (time - lastPrint));
+        lastPrint = time;
+        framesRendered = 0;
+    }
 }
 
 void Game::RenderMap()

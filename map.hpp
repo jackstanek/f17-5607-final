@@ -62,20 +62,22 @@ public:
     void RenderMap();
     void RenderCharacter();
 
-    inline bool InMap(uint32_t ix, uint32_t iy) const {
-        return (ix < w)
-            && (iy < h);
-    }
-
-    inline bool Traversable(uint32_t ix, uint32_t iy) const {
-        int t = TileAtPoint(ix, iy);
-        return t == TT_START || t == TT_GOAL || t == TT_KEY_A || t ==TT_KEY_B ||
-				t == TT_KEY_C || t == TT_KEY_D || t ==  TT_KEY_E || t == TT_FLOOR;
-            //(tile <= TT_DOOR_E && KeyCollected(tile));
-    }
+    //inline bool InMap(uint32_t ix, uint32_t iy) const {
+    //    return (ix < w)
+    //        && (iy < h);
+    //}
+    //
+    //inline bool Traversable(uint32_t ix, uint32_t iy) const {
+    //    int t = TileAtPoint(ix, iy);
+    //    return t == TT_START || t == TT_GOAL || t == TT_KEY_A || t ==TT_KEY_B ||
+	//			t == TT_KEY_C || t == TT_KEY_D || t ==  TT_KEY_E || t == TT_FLOOR;
+    //        //(tile <= TT_DOOR_E && KeyCollected(tile));
+    //}
 
     inline bool ValidMove(int x, int y) const {
-        return InMap(x, y) && Traversable(x, y);
+        int t = TileAtPoint(x, y);
+        return t == TT_START || t == TT_GOAL || t == TT_KEY_A || t ==TT_KEY_B ||
+				t == TT_KEY_C || t == TT_KEY_D || t ==  TT_KEY_E || t == TT_FLOOR;
     }
 
     inline float PctComplete() const {

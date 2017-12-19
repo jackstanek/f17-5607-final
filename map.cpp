@@ -71,7 +71,7 @@ Map* Map::ParseMapFile(int complexity)
 
 	std::cout << std::endl;
     
-    assert(key_ct == door_ct);
+    //assert(key_ct == door_ct);
     m->total_key_count = key_ct;
     return m;
 }
@@ -119,16 +119,16 @@ void Map::CollectKey(int key)
 
 bool Map::KeyCollected(int key) const
 {
-    //int index = -1;
-    //if (IsKey(key)) {
-    //    index = KeyIndex(key);
-    //} else if (IsDoor(key)) {
-    //    index = DoorIndex(key);
-    //}
-    //assert(index >= 0);
+    int index = -1;
+    if (IsKey(key)) {
+        index = KeyIndex(key);
+    } else if (IsDoor(key)) {
+        index = DoorIndex(key);
+    }
+    assert(index >= 0);
 
-    //return keys_collected[index];
-    return true;
+    return keys_collected[index];
+    //return true;
 }
 
 Character* Map::NewPlayerAtStart(int model_id) const

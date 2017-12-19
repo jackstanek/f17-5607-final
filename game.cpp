@@ -40,6 +40,13 @@ glm::mat4 floating_obj(glm::mat4 model, int t)
     model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     return model;
 }
+glm::mat4 rotating_obj(glm::mat4 model, int t)
+{
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
+    model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+    return model;
+}
+
 Game::Game(int diff) :
     map(Map::ParseMapFile(10 * diff)),
     mp(new ModelPool),
@@ -129,7 +136,7 @@ Game::Game(int diff) :
     //char_id = mp->Add("models/sphere.txt");
     char_id = mp->AddObj("models/Gwynn.obj");
     // key_id = mp->Add("models/knot.txt");
-    key_id = mp->AddObj("models/slime.obj");
+    key_id = mp->AddObj("models/leather-brunette.obj");
     goal_id = mp->Add("models/teapot.txt");
     //goal_id = mp->AddObj("models/Gwynn.obj");
     mp->LoadToGPU(vbo[0]);
@@ -340,7 +347,7 @@ void Game::RenderMap()
                 }
 
                 model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-                model = floating_obj(model, time);
+                model = rotating_obj(model, time);
                 glUniform1i(uni_texid, -1);
                 glUniform3fv(uni_color, 1, glm::value_ptr(key_colors[KeyIndex(tile)]));
                 render_id = key_id;

@@ -29,7 +29,8 @@ public:
     void print();
     int get_cell(int, int);
     std::vector<int> m_cells;
-    int startx, starty;
+    int startx, starty, keys;
+    std::vector<int> keys_in_hand;
 private:
     void set_cell(int, int, int);
     bool add_room(int, int, int);

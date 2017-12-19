@@ -8,6 +8,7 @@ Dungeon::Dungeon(int complexity)
 {
     m_width = 236;
     m_height = 60;
+    keys = 0;
     m_cells = std::vector<int>(m_width * m_height, TT_OPEN);
     m_rooms = std::vector<Room>();
     m_exits = std::vector<Room>();
@@ -51,6 +52,7 @@ void Dungeon::generate_dungeon(int complexity)
             }
         }
     }
+    
     // need to check that there is path between start and goal, if not reroll map
     // I'm not certain if every map is solvable currently
 
@@ -63,8 +65,11 @@ void Dungeon::generate_dungeon(int complexity)
     // need to resolve something if no goal is placed
     // haven't had an issue with this on non-trivial map sizes
     if (!place_object(TT_GOAL)) {
-        return;
+		m_cells.clear();
+		generate_dungeon(complexity);
+		return;        
     }
+    
     // hallways are distinct as generators, but drawn as floors
     for (unsigned int i = 0; i < m_cells.size(); ++i) {
         // remove TT_CLOSED_DOOR if we get door animation working
@@ -72,6 +77,15 @@ void Dungeon::generate_dungeon(int complexity)
             m_cells.at(i) = TT_FLOOR;
         }
     }
+    // place keys in random rooms
+    for (unsigned int i = TT_KEY_A; i <= TT_KEY_E; i++, keys++) {
+		if (place_object(i)) {
+			keys_in_hand.emplace_back(i);
+		}
+		else {
+			return;
+		}
+	}
 }
 
 void Dungeon::print()
@@ -303,7 +317,7 @@ bool Dungeon::place_object(int cell)
 
     if (get_cell(x, y) == TT_FLOOR) {
         set_cell(x, y, cell);
-        //m_rooms.erase(m_rooms.begin() + r);
+        m_rooms.erase(m_rooms.begin() + r);
         return true;
     }
 

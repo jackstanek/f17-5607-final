@@ -17,6 +17,9 @@ int screenWidth = 800;
 int screenHeight = 600;
 bool saveOutput = false;
 
+int framesRendered = 0;
+int lastPrint = 0;
+
 // eric: this is my code for floating keys in hand if we want to use it
 //if (key_stats[i] == KEY_IN_HAND) {
 //	model = glm::translate(glm::mat4(), glm::vec3(key_position[i]));
@@ -37,6 +40,13 @@ glm::mat4 floating_obj(glm::mat4 model, int t)
     model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     return model;
 }
+glm::mat4 rotating_obj(glm::mat4 model, int t)
+{
+    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
+    model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+    return model;
+}
+
 Game::Game(int diff) :
     map(Map::ParseMapFile(10 * diff)),
     mp(new ModelPool),
@@ -126,7 +136,7 @@ Game::Game(int diff) :
     //char_id = mp->Add("models/sphere.txt");
     char_id = mp->AddObj("models/Gwynn.obj");
     // key_id = mp->Add("models/knot.txt");
-    key_id = mp->AddObj("models/slime.obj");
+    key_id = mp->AddObj("models/leather-brunette.obj");
     goal_id = mp->Add("models/teapot.txt");
     //goal_id = mp->AddObj("models/Gwynn.obj");
     mp->LoadToGPU(vbo[0]);
@@ -234,7 +244,7 @@ void Game::Render()
 
         glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-        glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 10.0f); //FOV, aspect, near, far
+        glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 100.0f); //FOV, aspect, near, far
         glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
         glActiveTexture(GL_TEXTURE0);
@@ -248,7 +258,7 @@ void Game::Render()
         glBindVertexArray(model_vao);
 
         RenderMap();
-        RenderCharacter();
+        //RenderCharacter();
     }
 
     /* Render the fullscreen texture quad */
@@ -278,6 +288,14 @@ void Game::Render()
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     SDL_GL_SwapWindow(window); //Double buffering
+
+    framesRendered++;
+
+    if (time - lastPrint > 1000) {
+        std::printf("%d FPS\n", framesRendered * 1000 / (time - lastPrint));
+        lastPrint = time;
+        framesRendered = 0;
+    }
 }
 
 void Game::RenderMap()
@@ -331,7 +349,7 @@ void Game::RenderMap()
                 }
 
                 model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
-                model = floating_obj(model, time);
+                model = rotating_obj(model, time);
                 glUniform1i(uni_texid, -1);
                 glUniform3fv(uni_color, 1, glm::value_ptr(key_colors[KeyIndex(tile)]));
                 render_id = key_id;
@@ -360,7 +378,7 @@ void Game::RenderCharacter()
 
     glm::mat4 model;
 
-    model = glm::translate(model, player->WorldPosition(time));
+    //model = glm::translate(model, player->WorldPosition(time));
     model = glm::rotate(model, player->Rotation(), glm::vec3(0,0,1));
     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
     glUniformMatrix4fv(uni_model, 1, GL_FALSE, glm::value_ptr(model));

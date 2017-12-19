@@ -14,15 +14,15 @@ Character::Character(int x, int y, int model_id) :
     y(y),
     prev_x(x),
     prev_y(y),
-    prev_bx(x),
-    prev_by(y - 1),
-    behind_x(x),
-    behind_y(y - 1),
+    prev_fx(x),
+    prev_fy(y + 1),
+    front_x(x),
+    front_y(y + 1),
     direction(CD_UP),
     rot(-3.1415/2),
     anim_start(0)
 {
-    SetBehind();
+    SetFront();
 }
 
 float blend(int t, float start, float end) {
@@ -41,22 +41,25 @@ float blend(int t, float start, float end) {
 glm::vec3 Character::CamPosition(int t) const
 {
     int tc = t - anim_start;
-    return glm::vec3(blend(tc, prev_bx, behind_x),
-                     blend(tc, prev_by, behind_y),
-                     1.0f);
-}
-
-glm::vec3 Character::WorldPosition(int t) const
-{
-    int tc = t - anim_start;
     return glm::vec3(blend(tc, prev_x, x),
                      blend(tc, prev_y, y),
                      0.0f);
 }
 
+// glm::vec3 Character::WorldPosition(int t) const
+// {
+//     int tc = t - anim_start;
+//     return glm::vec3(blend(tc, prev_x, x),
+//                      blend(tc, prev_y, y),
+//                      0.0f);
+// }
+
 glm::vec3 Character::LookAtPosition(int t) const
 {
-    return WorldPosition(t) + glm::vec3(0, 0, 0.33f);
+    int tc = t - anim_start;
+    return glm::vec3(blend(tc, prev_fx, front_x),
+                     blend(tc, prev_fy, front_y),
+                     0.0f);
 }
 
 float Character::Rotation() const
@@ -93,9 +96,9 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
 
     rot = (direction + 1) * (-3.1415/2);
     anim_start = time;
-    prev_bx = behind_x;
-    prev_by = behind_y;
-    SetBehind();
+    prev_fx = front_x;
+    prev_fy = front_y;
+    SetFront();
     return true;
 }
 
@@ -135,24 +138,24 @@ void Character::Move(Map* map)
     }
 }
 
-void Character::SetBehind()
+void Character::SetFront()
 {
     switch (direction) {
     case CD_UP:
-        behind_x = x;
-        behind_y = y - 1;
+        front_x = x;
+        front_y = y + 1;
         break;
     case CD_DOWN:
-        behind_x = x;
-        behind_y = y + 1;
+        front_x = x;
+        front_y = y - 1;
         break;
     case CD_RIGHT:
-        behind_x = x - 1;
-        behind_y = y;
+        front_x = x + 1;
+        front_y = y;
         break;
     case CD_LEFT:
-        behind_x = x + 1;
-        behind_y = y;
+        front_x = x - 1;
+        front_y = y;
         break;
     }
 }

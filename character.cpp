@@ -89,9 +89,6 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
 		case SDLK_w:
 			Move(map);
 			break;
-		case SDLK_m:
-			map->print_map();
-			break;
     }
 
     rot = (direction + 1) * (-3.1415/2);

@@ -40,6 +40,7 @@ glm::mat4 floating_obj(glm::mat4 model, int t)
     model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     return model;
 }
+
 glm::mat4 rotating_obj(glm::mat4 model, int t)
 {
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
@@ -50,7 +51,8 @@ glm::mat4 rotating_obj(glm::mat4 model, int t)
 Game::Game(int diff) :
     map(Map::ParseMapFile(10 * diff)),
     mp(new ModelPool),
-    render_passes(NUM_RENDER_PASSES)
+    render_passes(NUM_RENDER_PASSES),
+    render_mode(0)
 {
 	difficulty = diff;
     SDL_Init(SDL_INIT_VIDEO);  //Initialize Graphics (for OpenGL)
@@ -220,6 +222,8 @@ Game::~Game()
     glDeleteVertexArrays(1, &model_vao);
     SDL_GL_DeleteContext(context);
     SDL_Quit();
+
+    std::printf("\n");
 }
 
 void Game::Render()
@@ -271,6 +275,7 @@ void Game::Render()
     glBindVertexArray(quad_vao);
 
     glUniform1i(glGetUniformLocation(quadShader, "time"), time);
+    glUniform1i(glGetUniformLocation(quadShader, "render_mode"), render_mode);
 
     glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(view * glm::vec4(-1, 1, -1, 0)));
 
@@ -293,7 +298,8 @@ void Game::Render()
     framesRendered++;
 
     if (time - lastPrint > 1000) {
-        std::printf("%d FPS\n", framesRendered * 1000 / (time - lastPrint));
+        std::printf("\r%d FPS", framesRendered * 1000 / (time - lastPrint));
+        std::fflush(stdout);
         lastPrint = time;
         framesRendered = 0;
     }
@@ -396,12 +402,27 @@ void Game::RenderCharacter()
 void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
 {
     switch (ev.keysym.sym) {
-        default:
-            if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
-                nextAction = ev.keysym.sym;
-                nextTime = time;
-            }
+    case SDLK_w:
+    case SDLK_a:
+    case SDLK_s:
+    case SDLK_d:
+        if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
+            nextAction = ev.keysym.sym;
+            nextTime = time;
+        }
+        break;
+    case SDLK_m:
+        map->print_map();
+        break;
+    case SDLK_r:
+        ChangeRenderMode();
+        break;
     }
+}
+
+void Game::ChangeRenderMode()
+{
+    render_mode = (render_mode + 1) % 4;
 }
 
 void Game::ChangeMap()

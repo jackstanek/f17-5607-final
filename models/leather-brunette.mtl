@@ -1,0 +1,219 @@
+# Blender MTL File: 'leather-brunette.blend'
+# Material Count: 17
+
+newmtl Boots
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.778039 0.762353 0.677647
+Ks 0.792157 0.933333 0.925490
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Boots_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Boots_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Boots_Specular.jpg
+
+newmtl Bra
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Bra_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Bra_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Bra_Specular.jpg
+
+newmtl Cornea
+Ns 629.411765
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.800000
+illum 6
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Cornea_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Cornea_Diffuse.jpg
+
+newmtl Eye
+Ns 400.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Eye_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Eye_Diffuse.jpg
+
+newmtl Eyelash
+Ns 200.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Eyelash_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Eyelash_Specular.jpg
+map_d C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Eyelash_Opacity.jpg
+
+newmtl Fingernail
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Fingernail_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Fingernail_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Fingernail_Specular.jpg
+
+newmtl High_polytail
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.269412 0.269412 0.269412
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Bump -bm 0.056007 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\High_polytail_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\High_polytail_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\High_polytail_Specular.jpg
+map_d C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\High_polytail_Opacity.jpg
+
+newmtl Jeans
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Jeans_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Jeans_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Jeans_Specular.jpg
+
+newmtl Lower_Teeth
+Ns 349.019608
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Lower Teeth_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Lower Teeth_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Lower Teeth_Specular.jpg
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
+
+newmtl Scalp_High_polytail
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.269412 0.269412 0.269412
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Bump -bm 0.056007 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Scalp_High_polytail_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Scalp_High_polytail_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Scalp_High_polytail_Specular.jpg
+map_d C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Scalp_High_polytail_Opacity.jpg
+
+newmtl Skin_Body
+Ns 200.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Skin_Body_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Skin_Body_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Skin_Body_Specular.jpg
+
+newmtl Skin_Head
+Ns 200.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Skin_Head_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Skin_Head_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Skin_Head_Specular.jpg
+
+newmtl Toenail
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Toenail_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Toenail_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Toenail_Specular.jpg
+
+newmtl Tongue
+Ns 300.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.042005 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Tongue_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Tongue_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Tongue_Specular.jpg
+
+newmtl Underwear_Bottoms
+Ns 100.000000
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.538824 0.538824 0.538824
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 0.000000
+illum 6
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Underwear Bottoms_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Underwear Bottoms_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Underwear Bottoms_Specular.jpg
+map_d C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Underwear Bottoms_Opacity.jpg
+
+newmtl Upper_Teeth
+Ns 349.019608
+Ka 0.000000 0.000000 0.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.898039 0.898039 0.898039
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 3
+map_Bump -bm 0.140017 C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Upper Teeth_Bump.jpg
+map_Kd C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Upper Teeth_Diffuse.jpg
+map_Ks C:\\Users\\sephi\\AppData\\Local\\Temp\\AvatarCreatorTemp\\Upper Teeth_Specular.jpg

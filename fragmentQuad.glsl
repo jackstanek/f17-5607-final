@@ -12,10 +12,11 @@ uniform sampler2D texPos;
 uniform vec4 in_lightDir;
 uniform int time;
 
-const float ambient = 0.3;
+const float ambient = 0.0;
 
 void main() {
-    vec3 lightDir = -normalize(in_lightDir.xyz);
+    // vec3 lightDir = -normalize(in_lightDir.xyz);
+    vec3 lightDir = normalize(-texture(texPos, Texcoord).xyz);
 
     vec3 normal = texture(texNormal, Texcoord).xyz;
     vec3 reflectDir = reflect(-lightDir, normal);
@@ -26,6 +27,6 @@ void main() {
 
     vec4 raw_color = texture(texDiffuse, Texcoord);
     float dist = length(texture(texPos, Texcoord).xyz);
-    dist = clamp(dist*dist - 9 + 2 * sin(time/1000.f), 1, 3);
-    outColor = 1/dist * (raw_color * (diffuse + ambient) + specular * vec4(1, 1, 1, 1));
+    dist = clamp(dist*dist - 12 + 2 * sin(time/1000.f), 1, 100);
+    outColor = 1/dist * (raw_color * (diffuse + ambient) + specular * vec4(1, 1, 1, 1)) * vec4(1, 0.8, 0.5, 1.0);
 }

@@ -237,7 +237,7 @@ void Game::Render()
 
         glUniformMatrix4fv(uniView, 1, GL_FALSE, glm::value_ptr(view));
 
-        glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 10.0f); //FOV, aspect, near, far
+        glm::mat4 proj = glm::perspective(3.14f/4, screenWidth / (float) screenHeight, 0.1f, 100.0f); //FOV, aspect, near, far
         glUniformMatrix4fv(uniProj, 1, GL_FALSE, glm::value_ptr(proj));
 
         glActiveTexture(GL_TEXTURE0);
@@ -251,7 +251,7 @@ void Game::Render()
         glBindVertexArray(model_vao);
 
         RenderMap();
-        RenderCharacter();
+        //RenderCharacter();
     }
 
     /* Render the fullscreen texture quad */
@@ -369,7 +369,7 @@ void Game::RenderCharacter()
 
     glm::mat4 model;
 
-    model = glm::translate(model, player->WorldPosition(time));
+    //model = glm::translate(model, player->WorldPosition(time));
     model = glm::rotate(model, player->Rotation(), glm::vec3(0,0,1));
     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
     glUniformMatrix4fv(uni_model, 1, GL_FALSE, glm::value_ptr(model));

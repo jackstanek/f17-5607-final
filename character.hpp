@@ -21,7 +21,7 @@ class Character {
 public:
     Character(int x, int y, int model_id);
 
-    glm::vec3 WorldPosition(int t) const;
+    //glm::vec3 WorldPosition(int t) const;
     glm::vec3 CamPosition(int t) const;
     glm::vec3 LookAtPosition(int t) const;
     float Rotation() const;
@@ -35,12 +35,12 @@ public:
 
 private:
     void Move(Map* map);
-    void SetBehind();
+    void SetFront();
 
     int x, y;
     int prev_x, prev_y;
-    int prev_bx, prev_by;
-    int behind_x, behind_y;
+    int prev_fx, prev_fy;
+    int front_x, front_y;
     int direction;
     float rot;
 

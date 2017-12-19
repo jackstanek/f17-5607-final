@@ -259,6 +259,8 @@ void Game::Render()
     glUseProgram(quadShader);
     glBindVertexArray(quad_vao);
 
+    glUniform1i(glGetUniformLocation(quadShader, "time"), time);
+
     glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(view * glm::vec4(-1, 1, -1, 0)));
 
     glActiveTexture(GL_TEXTURE0);

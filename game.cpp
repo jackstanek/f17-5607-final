@@ -222,6 +222,8 @@ Game::~Game()
     glDeleteVertexArrays(1, &model_vao);
     SDL_GL_DeleteContext(context);
     SDL_Quit();
+
+    std::printf("\n");
 }
 
 void Game::Render()
@@ -296,7 +298,8 @@ void Game::Render()
     framesRendered++;
 
     if (time - lastPrint > 1000) {
-        std::printf("%d FPS\n", framesRendered * 1000 / (time - lastPrint));
+        std::printf("\r%d FPS", framesRendered * 1000 / (time - lastPrint));
+        std::fflush(stdout);
         lastPrint = time;
         framesRendered = 0;
     }

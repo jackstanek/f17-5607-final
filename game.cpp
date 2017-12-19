@@ -40,6 +40,7 @@ glm::mat4 floating_obj(glm::mat4 model, int t)
     model = glm::rotate(model, t / 2000.0f, glm::vec3(0.0f, 0.0f, 1.0f));
     return model;
 }
+
 glm::mat4 rotating_obj(glm::mat4 model, int t)
 {
     model = glm::translate(model, glm::vec3(0.0f, 0.0f, -1.0f));
@@ -50,7 +51,8 @@ glm::mat4 rotating_obj(glm::mat4 model, int t)
 Game::Game(int diff) :
     map(Map::ParseMapFile(10 * diff)),
     mp(new ModelPool),
-    render_passes(NUM_RENDER_PASSES)
+    render_passes(NUM_RENDER_PASSES),
+    render_mode(0)
 {
 	difficulty = diff;
     SDL_Init(SDL_INIT_VIDEO);  //Initialize Graphics (for OpenGL)
@@ -271,6 +273,7 @@ void Game::Render()
     glBindVertexArray(quad_vao);
 
     glUniform1i(glGetUniformLocation(quadShader, "time"), time);
+    glUniform1i(glGetUniformLocation(quadShader, "render_mode"), render_mode);
 
     glUniform4fv(glGetUniformLocation(quadShader, "in_lightDir"), 1, glm::value_ptr(view * glm::vec4(-1, 1, -1, 0)));
 
@@ -379,7 +382,7 @@ void Game::RenderCharacter()
 
     glm::mat4 model;
 
-    //model = glm::translate(model, player->WorldPosition(time));
+    model = glm::translate(model, player->WorldPosition(time));
     model = glm::rotate(model, player->Rotation(), glm::vec3(0,0,1));
     model = glm::scale(model, glm::vec3(0.5f, 0.5f, 0.5f));
     glUniformMatrix4fv(uni_model, 1, GL_FALSE, glm::value_ptr(model));
@@ -395,12 +398,27 @@ void Game::RenderCharacter()
 void Game::OnKeyDown(const SDL_KeyboardEvent& ev)
 {
     switch (ev.keysym.sym) {
-        default:
-            if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
-                nextAction = ev.keysym.sym;
-                nextTime = time;
-            }
+    case SDLK_w:
+    case SDLK_a:
+    case SDLK_s:
+    case SDLK_d:
+        if(!(player->MoveInDirection(ev.keysym.sym, map, time))) {
+            nextAction = ev.keysym.sym;
+            nextTime = time;
+        }
+        break;
+    case SDLK_m:
+        map->print_map();
+        break;
+    case SDLK_r:
+        ChangeRenderMode();
+        break;
     }
+}
+
+void Game::ChangeRenderMode()
+{
+    render_mode = (render_mode + 1) % 4;
 }
 
 void Game::ChangeMap()

@@ -34,6 +34,8 @@ public:
     void ChangeMap();
     void Update();
 
+    void ChangeRenderMode();
+
 private:
     void RenderMap();
     void RenderCharacter();
@@ -56,9 +58,11 @@ private:
     ModelPool* mp;
 
     std::vector<RenderPass*> render_passes;
-    
+
     int nextAction = -1;
     int nextTime; // on Dragonball Z
+
+    int render_mode; /* Regular (deferred), view normal map, view pos map */
 };
 
 #endif

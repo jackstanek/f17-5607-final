@@ -6,7 +6,7 @@
 #include "glm/vec3.hpp"
 
 /* Time, in milliseconds, to perform an animation. */
-#define ANIM_SPEED 150
+#define ANIM_SPEED 500
 
 class Map;
 
@@ -21,7 +21,7 @@ class Character {
 public:
     Character(int x, int y, int model_id);
 
-    //glm::vec3 WorldPosition(int t) const;
+    glm::vec3 WorldPosition(int t) const;
     glm::vec3 CamPosition(int t) const;
     glm::vec3 LookAtPosition(int t) const;
     float Rotation() const;

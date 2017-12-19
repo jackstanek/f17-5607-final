@@ -46,13 +46,13 @@ glm::vec3 Character::CamPosition(int t) const
                      0.0f);
 }
 
-// glm::vec3 Character::WorldPosition(int t) const
-// {
-//     int tc = t - anim_start;
-//     return glm::vec3(blend(tc, prev_x, x),
-//                      blend(tc, prev_y, y),
-//                      0.0f);
-// }
+glm::vec3 Character::WorldPosition(int t) const
+{
+    int tc = t - anim_start;
+    return glm::vec3(blend(tc, prev_x, x) + (front_x - x),
+                     blend(tc, prev_y, y) + (front_y - y),
+                     0.0f);
+}
 
 glm::vec3 Character::LookAtPosition(int t) const
 {
@@ -88,9 +88,6 @@ bool Character::MoveInDirection(int sym, Map* map, int time)
 			break;
 		case SDLK_w:
 			Move(map);
-			break;
-		case SDLK_m:
-			map->print_map();
 			break;
     }
 
@@ -158,4 +155,5 @@ void Character::SetFront()
         front_y = y;
         break;
     }
+
 }
